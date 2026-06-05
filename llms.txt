@@ -1,0 +1,41 @@
+astral-mcp — precision-audited astrology for AI agents
+
+Local-first MCP server that computes natal charts, transits, synastry and moon
+phases from birth data. Stateless: no API key, no OAuth, no account. Every natal
+chart is independently re-derived by a second ephemeris and shipped with a
+precision audit (per-planet delta + verified/review status).
+
+Package: astral-mcp (npm)
+Install: npx -y astral-mcp
+Binary: astral-mcp-server
+Repository: https://github.com/davidmosiah/astral-mcp
+MCP name: io.github.davidmosiah/astral-mcp
+Author: David Mosiah — https://github.com/davidmosiah
+License: MIT
+
+Engines: circular-natal-horoscope-js (primary) cross-checked by astronomy-engine (verifier).
+
+Recommended agent flow:
+1. astral_capabilities — what this server can compute
+2. astral_search_birthplace — turn a city into latitude/longitude/timezone
+3. astral_compute_natal_chart — the core reading (precision-verified by default)
+4. astral_current_transits / astral_synastry / astral_moon_phase — go deeper
+
+Tools:
+- astral_compute_natal_chart — planets, houses, aspects, signature, precision audit
+- astral_current_transits — current + upcoming transits to a natal chart, moon phase
+- astral_synastry — two-chart comparison with scored harmony/chemistry/communication/growth
+- astral_moon_phase — moon phase, sign, illumination for any date (no birth data)
+- astral_search_birthplace — geocode a place to lat/lon/timezone (OpenStreetMap)
+- astral_demo — fully-worked example chart, no input needed
+- astral_capabilities — supported house systems, zodiacs, bodies, aspects, limits
+- astral_data_inventory — data domains and recommended first calls
+- astral_agent_manifest — install + usage rules for agents
+- astral_connection_status — health check via a sample chart + dual-engine audit
+
+Notes:
+- Pass the BIRTHPLACE timezone, not the caller's timezone.
+- birth_time is optional; without it noon is assumed and the Ascendant/houses are unreliable (planet signs stay accurate).
+- House systems: placidus, koch, campanus, regiomontanus, topocentric, equal-house, whole-sign. Zodiacs: tropical, sidereal.
+- Returns structured astrology data only — the calling model writes any interpretation.
+- Not included yet: lunar nodes, Chiron, asteroids, fixed stars, minor aspects.

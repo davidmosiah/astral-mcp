@@ -1,0 +1,63 @@
+#!/usr/bin/env node
+import cors from "cors";
+import express from "express";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { SERVER_NAME, SERVER_VERSION } from "./constants.js";
+import { createServer } from "./server.js";
+
+async function runStdio(): Promise<void> {
+  const server = createServer();
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+}
+
+async function runHttp(): Promise<void> {
+  const app = express();
+  const host = process.env.ASTRAL_MCP_HOST ?? "127.0.0.1";
+  const port = Number(process.env.ASTRAL_MCP_PORT ?? 3000);
+  const allowedOrigin = process.env.ASTRAL_MCP_ALLOWED_ORIGIN ?? `http://${host}:${port}`;
+
+  app.use(express.json({ limit: "1mb" }));
+  app.use(cors({ origin: allowedOrigin }));
+
+  app.get("/health", (_req, res) => {
+    res.json({ ok: true, name: SERVER_NAME, version: SERVER_VERSION });
+  });
+
+  app.post("/mcp", async (req, res) => {
+    const server = createServer();
+    const transport = new StreamableHTTPServerTransport({
+      sessionIdGenerator: undefined,
+      enableJsonResponse: true
+    });
+
+    res.on("close", () => {
+      transport.close().catch(() => undefined);
+      server.close().catch(() => undefined);
+    });
+
+    try {
+      await server.connect(transport);
+      await transport.handleRequest(req, res, req.body);
+    } catch (error) {
+      console.error("MCP HTTP request failed:", error);
+      if (!res.headersSent) {
+        res.status(500).json({ jsonrpc: "2.0", error: { code: -32603, message: "Internal server error" }, id: null });
+      }
+    }
+  });
+
+  app.listen(port, host, () => {
+    console.error(`${SERVER_NAME} HTTP transport listening on http://${host}:${port}/mcp`);
+  });
+}
+
+const args = new Set(process.argv.slice(2));
+const transport = process.env.ASTRAL_MCP_TRANSPORT ?? (args.has("--http") ? "http" : "stdio");
+
+if (transport === "http") {
+  await runHttp();
+} else {
+  await runStdio();
+}
