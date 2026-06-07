@@ -114,6 +114,14 @@ npm run test:accuracy
 - `astral_agent_manifest` — install + usage rules for agents
 - `astral_connection_status` — health check via a sample chart + dual-engine audit
 
+The three chart tools (`astral_compute_natal_chart`, `astral_current_transits`, `astral_synastry`) take a **`privacy_mode`** parameter — a payload-verbosity axis separate from `response_format`:
+
+- `full` (default) — the complete payload, including the per-planet precision audit
+- `structured` — same structure, redundant/derivable fields dropped
+- `summary` — only the high-signal essentials (luminaries + Ascendant, chart signature, top aspects)
+
+A full Greenwich natal payload is ~6.9 KB; `summary` is ~1.2 KB (~80% smaller), so an agent that only needs a quick read can ask for less and spend fewer tokens.
+
 ## Notes for accurate readings
 
 - Pass the **birthplace** timezone, not the caller's. `astral_search_birthplace` returns it.

@@ -1,6 +1,6 @@
 {
   "name": "astral-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Local-first, precision-audited MCP server that gives AI agents natal charts, transits, synastry and moon phases — no API key, no account.",
   "type": "module",
   "bin": {

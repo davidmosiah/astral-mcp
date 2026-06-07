@@ -1,5 +1,5 @@
 export const SERVER_NAME = "astral-mcp-server";
-export const SERVER_VERSION = "0.1.0";
+export const SERVER_VERSION = "0.2.0";
 export const NPM_PACKAGE_NAME = "astral-mcp";
 export const PINNED_NPM_PACKAGE = `${NPM_PACKAGE_NAME}@${SERVER_VERSION}`;
 export const MCP_NAME = "io.github.davidmosiah/astral-mcp";

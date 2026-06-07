@@ -1,4 +1,4 @@
-import type { ResponseFormat, ToolResponse } from "../types.js";
+import type { PrivacyMode, ResponseFormat, ToolResponse } from "../types.js";
 import type { NatalChart } from "../engine/natal-chart.js";
 import type { PrecisionAuditResult } from "../engine/precision-audit.js";
 import type { DailyTransitSnapshot, MoonPhaseSnapshot } from "../engine/transits.js";
@@ -41,7 +41,8 @@ function degree(value: number): string {
 
 const PLANET_ORDER = ["sun", "moon", "mercury", "venus", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto", "ascendant", "mc"];
 
-export function formatNatalChart(chart: NatalChart, precision?: PrecisionAuditResult): string {
+export function formatNatalChart(chart: NatalChart, precision?: PrecisionAuditResult, mode: PrivacyMode = "full"): string {
+  if (mode === "summary") return formatNatalSummary(chart, precision);
   const lines: string[] = ["# Natal chart", ""];
   lines.push(`- **engine**: ${chart.meta.engine} (${chart.meta.houseSystem}, ${chart.meta.zodiac})`);
   lines.push(`- **birth time known**: ${chart.meta.birthTimeKnown}`);
@@ -72,6 +73,33 @@ export function formatNatalChart(chart: NatalChart, precision?: PrecisionAuditRe
       lines.push(`- ${cap(aspect.planet1)} ${aspect.aspect} ${cap(aspect.planet2)} (orb ${degree(aspect.orb)}, ${aspect.strength})`);
     }
   }
+  return lines.join("\n");
+}
+
+function formatNatalSummary(chart: NatalChart, precision?: PrecisionAuditResult): string {
+  const lines: string[] = ["# Natal chart (summary)", ""];
+  for (const key of ["sun", "moon", "ascendant"]) {
+    const planet = chart.planets[key];
+    if (!planet) continue;
+    const house = planet.house ? ` · house ${planet.house}` : "";
+    lines.push(`- **${cap(key)}**: ${planet.sign} ${degree(planet.degree)}${house}`);
+  }
+  lines.push(`- **dominant element**: ${chart.context.dominantElement}`);
+  lines.push(`- **dominant modality**: ${chart.context.dominantModality}`);
+  lines.push(`- **chart pattern**: ${chart.context.chartPattern}`);
+  if (chart.context.keyAspects.length) {
+    lines.push("");
+    lines.push("## Key aspects");
+    for (const aspect of chart.context.keyAspects.slice(0, 3)) {
+      lines.push(`- ${cap(aspect.planet1)} ${aspect.aspect} ${cap(aspect.planet2)} (orb ${degree(aspect.orb)}, ${aspect.strength})`);
+    }
+  }
+  if (precision) {
+    lines.push("");
+    lines.push(`- **precision**: ${precision.status} (max Δ ${degree(precision.maxDeltaDegrees)})`);
+  }
+  lines.push("");
+  lines.push("_Abridged (privacy_mode=summary). Call with privacy_mode=full for every placement, all twelve houses, the complete aspect list and the per-planet precision audit._");
   return lines.join("\n");
 }
 

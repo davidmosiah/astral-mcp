@@ -47,17 +47,34 @@ assert.equal(status.self_check.precision_status, "verified", "self-check precisi
 console.log(`✓ connection_status ready, self-check ${status.self_check.precision_status} (Δ ${status.self_check.max_delta_degrees}°)`);
 
 // 3. Natal chart with a known sun sign
-const chart = await call("astral_compute_natal_chart", {
+const greenwich = {
   birth_date: "2000-01-01",
   birth_time: "12:00",
   latitude: 51.4779,
   longitude: -0.0015,
   timezone: "Europe/London"
-});
+};
+const chart = await call("astral_compute_natal_chart", greenwich);
 assert.equal(chart.planets.sun.sign, "Capricorn", `expected Capricorn sun, got ${chart.planets.sun.sign}`);
 assert.equal(chart.precision.status, "verified", "natal precision not verified");
 assert.ok(Array.isArray(chart.aspects), "aspects missing");
+assert.equal(chart.meta.privacy_mode, "full", "default privacy_mode should be full");
 console.log(`✓ natal chart: sun ${chart.planets.sun.sign}, ${chart.aspects.length} aspects, precision ${chart.precision.status}`);
+
+// 3b. privacy_mode must actually shrink the payload (real token economy)
+const structured = await call("astral_compute_natal_chart", { ...greenwich, privacy_mode: "structured" });
+const summary = await call("astral_compute_natal_chart", { ...greenwich, privacy_mode: "summary" });
+const fullBytes = JSON.stringify(chart).length;
+const structuredBytes = JSON.stringify(structured).length;
+const summaryBytes = JSON.stringify(summary).length;
+assert.equal(summary.planets.sun.sign, "Capricorn", "summary lost the sun placement");
+assert.equal(summary.meta.privacy_mode, "summary", "summary not marked");
+assert.ok(!("pluto" in summary.planets), "summary should drop outer planets");
+assert.equal(Object.keys(summary.houses).length, 0, "summary should omit houses");
+assert.equal(structured.meta.privacy_mode, "structured", "structured not marked");
+assert.ok(structuredBytes < fullBytes, `structured (${structuredBytes}b) not smaller than full (${fullBytes}b)`);
+assert.ok(summaryBytes < structuredBytes, `summary (${summaryBytes}b) not smaller than structured (${structuredBytes}b)`);
+console.log(`✓ privacy_mode payloads: full ${fullBytes}b › structured ${structuredBytes}b › summary ${summaryBytes}b (summary ${Math.round((1 - summaryBytes / fullBytes) * 100)}% smaller)`);
 
 // 4. Demo, capabilities, inventory, manifest
 const demo = await call("astral_demo");
@@ -80,7 +97,23 @@ const transits = await call("astral_current_transits", {
   on_date: "2026-06-05"
 });
 assert.ok(Array.isArray(transits.highlights), "transit highlights missing");
+assert.ok(Object.keys(transits.currentPlanets).length > 0, "full transits should carry the current-sky planet map");
 console.log(`✓ transits: ${transits.highlights.length} active, moon ${transits.moon ? transits.moon.phase : "n/a"}`);
+
+// 5b. Transits summary drops the bulky current-sky planet map
+const transitsSummary = await call("astral_current_transits", {
+  birth_date: "1989-02-23",
+  birth_time: "12:00",
+  latitude: -3.7327,
+  longitude: -38.527,
+  timezone: "America/Fortaleza",
+  on_date: "2026-06-05",
+  privacy_mode: "summary"
+});
+assert.equal(transitsSummary.privacy_mode, "summary", "transits summary not marked");
+assert.equal(Object.keys(transitsSummary.currentPlanets).length, 0, "transits summary should omit the current-sky planet map");
+assert.ok(JSON.stringify(transitsSummary).length < JSON.stringify(transits).length, "transits summary not smaller than full");
+console.log("✓ transits summary smaller, current-sky map omitted");
 
 // 6. Moon phase
 const moon = await call("astral_moon_phase", { on_date: "2026-06-05", timezone: "UTC" });
@@ -93,6 +126,7 @@ const syn = await call("astral_synastry", {
   partner: { birth_date: "1991-07-15", birth_time: "09:00", latitude: -23.5505, longitude: -46.6333, timezone: "America/Sao_Paulo" }
 });
 assert.ok(typeof syn.score === "number" && syn.score >= 0 && syn.score <= 100, "synastry score out of range");
+assert.equal(syn.privacy_mode, "full", "synastry default privacy_mode should be full");
 console.log(`✓ synastry: ${syn.score}/100 (${syn.tone}), ${syn.aspects.length} aspects`);
 
 await client.close();

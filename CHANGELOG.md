@@ -4,6 +4,21 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/) and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [0.2.0] - 2026-06-07
+
+### Added
+- `privacy_mode` parameter (`summary` | `structured` | `full`, default `full`) on
+  `astral_compute_natal_chart`, `astral_current_transits` and `astral_synastry`.
+  This is a payload-verbosity axis independent of `response_format`: an agent can
+  request a compact `summary` (luminaries + Ascendant, chart signature, top
+  aspects) instead of the full chart and cut the response by ~80%. `structured`
+  keeps the full structure but drops redundant/derivable fields. The default
+  stays `full`, so existing calls are unchanged.
+
+### Notes
+- Token economy, not just metadata: a full Greenwich natal payload is ~6.9 KB,
+  `structured` ~3.7 KB, `summary` ~1.2 KB.
+
 ## [0.1.0] - 2026-06-05
 
 Initial release.

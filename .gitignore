@@ -6,3 +6,6 @@ dist/
 .env.*
 coverage/
 *.tsbuildinfo
+
+# MCP registry auth tokens — secrets, never commit
+.mcpregistry_*

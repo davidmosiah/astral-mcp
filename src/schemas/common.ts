@@ -8,6 +8,9 @@ import { HOUSE_SYSTEMS, ZODIAC_SYSTEMS } from "../engine/astrology-constants.js"
 export const ResponseFormatSchema = z.enum(["markdown", "json"]).default("markdown")
   .describe("Output shape. 'markdown' is a readable briefing for display; 'json' returns the full structured chart for further processing.");
 
+export const PrivacyModeSchema = z.enum(["summary", "structured", "full"]).default("full")
+  .describe("Payload verbosity — how much of the chart to return, independent of response_format (which only picks markdown vs json). 'full' (default) returns the complete payload: every planet, house and aspect plus the per-planet precision audit. 'structured' keeps the full structure but drops redundant/derivable fields (absolute longitudes, element/modality, the precision audit rows) for a leaner machine payload. 'summary' returns only the high-signal essentials (luminaries + Ascendant, dominant element/modality, chart pattern, top aspects, precision status) to save tokens. Request 'summary' for a quick read, 'full' when you need every placement.");
+
 export const DateFieldSchema = z.string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Use ISO calendar date YYYY-MM-DD")
   .describe("Birth date as YYYY-MM-DD, e.g. 1989-02-23. Years before 1900 and after 2100 are supported but less precise.");
@@ -52,6 +55,7 @@ export const NatalChartInputSchema = z.object({
   zodiac: ZodiacSchema,
   verify_precision: z.boolean().default(true)
     .describe("When true (default), independently re-derives every planet with a second ephemeris and attaches a precision audit. Set false to skip the cross-check."),
+  privacy_mode: PrivacyModeSchema,
   response_format: ResponseFormatSchema
 }).strict();
 
@@ -65,6 +69,7 @@ export const TransitsInputSchema = z.object({
     .describe("Include transits to the Ascendant and Midheaven. Requires an accurate birth_time to be meaningful."),
   house_system: HouseSystemSchema,
   zodiac: ZodiacSchema,
+  privacy_mode: PrivacyModeSchema,
   response_format: ResponseFormatSchema
 }).strict();
 
@@ -73,6 +78,7 @@ export const SynastryInputSchema = z.object({
   partner: PersonBirthSchema.describe("Second person's birth data."),
   house_system: HouseSystemSchema,
   zodiac: ZodiacSchema,
+  privacy_mode: PrivacyModeSchema,
   response_format: ResponseFormatSchema
 }).strict();
 
@@ -101,7 +107,18 @@ export const ResponseOnlyInputSchema = z.object({
 // ---------------------------------------------------------------------------
 // Tool output schemas — permissive on the rich nested astrology payloads so the
 // SDK's structuredContent validation never rejects a valid chart.
+//
+// The SDK reconstructs each output schema from its `.shape`, which drops the
+// top-level `.passthrough()`. So the privacy_mode markers attached by the
+// verbosity reducer must be declared here as optional top-level fields (for the
+// natal chart they live inside `meta`, whose own passthrough survives).
 // ---------------------------------------------------------------------------
+
+const PrivacyMarkerFields = {
+  privacy_mode: z.enum(["summary", "structured", "full"]).optional(),
+  abridged: z.boolean().optional(),
+  note: z.string().optional()
+};
 
 export const NatalChartOutputSchema = z.object({
   planets: z.record(z.string(), z.unknown()),
@@ -126,14 +143,16 @@ export const TransitsOutputSchema = z.object({
   currentPlanets: z.record(z.string(), z.unknown()),
   moon: z.unknown().nullable(),
   highlights: z.array(z.unknown()),
-  upcoming: z.array(z.unknown())
+  upcoming: z.array(z.unknown()),
+  ...PrivacyMarkerFields
 }).passthrough();
 
 export const SynastryOutputSchema = z.object({
   score: z.number(),
   tone: z.string(),
   dimensions: z.unknown(),
-  aspects: z.array(z.unknown())
+  aspects: z.array(z.unknown()),
+  ...PrivacyMarkerFields
 }).passthrough();
 
 export const MoonPhaseOutputSchema = z.object({

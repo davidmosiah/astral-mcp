@@ -36,6 +36,7 @@ import {
   formatMoonPhase,
   formatBirthplaces
 } from "../services/format.js";
+import { applyNatalPrivacy, applyTransitsPrivacy, applySynastryPrivacy } from "../services/verbosity.js";
 import { buildDemo } from "../services/demo.js";
 import { buildCapabilities } from "../services/capabilities.js";
 import { buildDataInventory } from "../services/inventory.js";
@@ -87,7 +88,7 @@ export function registerAstralTools(server: McpServer): void {
     {
       title: "Compute Natal Chart",
       description:
-        "Compute a full natal (birth) chart from birth data: planet signs/degrees/houses, retrogrades, major aspects with orb and strength, the Ascendant/MC, and a derived signature (dominant element/modality, chart pattern, stelliums, angular planets). By default the chart is precision-audited by a second independent ephemeris. This is the primary tool. If you only have a city name, call astral_search_birthplace first to get latitude/longitude/timezone.",
+        "Compute a full natal (birth) chart from birth data: planet signs/degrees/houses, retrogrades, major aspects with orb and strength, the Ascendant/MC, and a derived signature (dominant element/modality, chart pattern, stelliums, angular planets). By default the chart is precision-audited by a second independent ephemeris. This is the primary tool. If you only have a city name, call astral_search_birthplace first to get latitude/longitude/timezone. Use privacy_mode to control payload size (a full chart is large): 'full' (default) returns everything; 'structured' drops redundant fields; 'summary' returns only the luminaries, Ascendant, chart signature and top aspects to save tokens.",
       inputSchema: NatalChartInputSchema.shape,
       outputSchema: NatalChartOutputSchema.shape,
       annotations: READ_DETERMINISTIC
@@ -105,8 +106,8 @@ export function registerAstralTools(server: McpServer): void {
             timezone: birth.timezone
           });
         }
-        const output = { ...chart, precision };
-        return makeResponse(output, params.response_format, formatNatalChart(chart, precision));
+        const output = applyNatalPrivacy({ ...chart, precision }, params.privacy_mode);
+        return makeResponse(output, params.response_format, formatNatalChart(chart, precision, params.privacy_mode));
       } catch (error) {
         return makeError((error as Error).message);
       }
@@ -119,7 +120,7 @@ export function registerAstralTools(server: McpServer): void {
     {
       title: "Current Transits",
       description:
-        "Read the current (or a chosen date's) planetary transits against a natal chart. Returns the active transit aspects to the natal planets and angles, upcoming activation windows over the next days, and the current moon phase. Supply the same birth data you would for a natal chart; pass on_date/on_time to read a specific moment. Useful for 'what's happening for me astrologically' questions.",
+        "Read the current (or a chosen date's) planetary transits against a natal chart. Returns the active transit aspects to the natal planets and angles, upcoming activation windows over the next days, and the current moon phase. Supply the same birth data you would for a natal chart; pass on_date/on_time to read a specific moment. Useful for 'what's happening for me astrologically' questions. Set privacy_mode=summary for just the moon phase and top transit aspects (omitting the full current-sky planet map), 'structured' for a leaner payload, or 'full' (default) for everything.",
       inputSchema: TransitsInputSchema.shape,
       outputSchema: TransitsOutputSchema.shape,
       annotations: READ_TIME_OR_NETWORK
@@ -135,7 +136,8 @@ export function registerAstralTools(server: McpServer): void {
           localTime: params.on_time ?? null,
           includeAngles: params.include_angles
         });
-        return makeResponse(snapshot, params.response_format, formatTransits(snapshot));
+        const output = applyTransitsPrivacy(snapshot, params.privacy_mode);
+        return makeResponse(output, params.response_format, formatTransits(snapshot));
       } catch (error) {
         return makeError((error as Error).message);
       }
@@ -148,7 +150,7 @@ export function registerAstralTools(server: McpServer): void {
     {
       title: "Synastry (Two-Chart Comparison)",
       description:
-        "Compare two birth charts (synastry). Returns the inter-chart aspects between the two people's planets and angles, plus scored dimensions (harmony, chemistry, communication, growth) and an overall 0–100 score with a tone. Provide both people's birth data under 'person' and 'partner'. Resolve any city names with astral_search_birthplace first.",
+        "Compare two birth charts (synastry). Returns the inter-chart aspects between the two people's planets and angles, plus scored dimensions (harmony, chemistry, communication, growth) and an overall 0–100 score with a tone. Provide both people's birth data under 'person' and 'partner'. Resolve any city names with astral_search_birthplace first. Set privacy_mode=summary for just the score, tone, dimensions and strongest aspects; 'full' (default) returns the complete aspect list.",
       inputSchema: SynastryInputSchema.shape,
       outputSchema: SynastryOutputSchema.shape,
       annotations: READ_DETERMINISTIC
@@ -161,7 +163,8 @@ export function registerAstralTools(server: McpServer): void {
           personPlanets: personChart.planets,
           partnerPlanets: partnerChart.planets
         });
-        return makeResponse(summary, params.response_format, formatSynastry(summary));
+        const output = applySynastryPrivacy(summary, params.privacy_mode);
+        return makeResponse(output, params.response_format, formatSynastry(summary));
       } catch (error) {
         return makeError((error as Error).message);
       }
