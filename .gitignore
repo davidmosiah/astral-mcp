@@ -9,3 +9,4 @@ coverage/
 
 # MCP registry auth tokens — secrets, never commit
 .mcpregistry_*
+.vercel

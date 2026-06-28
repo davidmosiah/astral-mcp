@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Astral MCP - Precision-audited astrology for AI agents</title>
+  <meta name="description" content="Local-first MCP server giving AI agents natal charts, transits, synastry and moon phases. Dual-engine precision audit, no API key, no account.">
+  <meta name="author" content="David Mosiah">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="Astral MCP, astrology MCP, natal chart API, Model Context Protocol, AI agents, Claude Desktop, Cursor, Hermes, ephemeris, transits, synastry, moon phase, birth chart">
+  <meta name="theme-color" content="#070A1C">
+  <meta property="og:title" content="Astral MCP - Precision-audited astrology for AI agents">
+  <meta property="og:description" content="Natal charts, transits, synastry and moon phases for AI agents. Every chart cross-checked by two ephemerides. Local-first, no API key, no account.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Astral MCP">
+  <meta property="og:url" content="https://astral.delx.ai/">
+  <meta property="og:image" content="https://astral.delx.ai/assets/og-card.png">
+  <meta property="og:image:secure_url" content="https://astral.delx.ai/assets/og-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Astral MCP - real astrology your AI agent can trust, with a dual-engine precision audit">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Astral MCP - Precision-audited astrology for AI agents">
+  <meta name="twitter:description" content="Natal charts, transits, synastry & moon phases for AI agents. Dual-engine precision audit. Local-first, no API key.">
+  <meta name="twitter:image" content="https://astral.delx.ai/assets/og-card.png">
+  <meta name="twitter:image:alt" content="Astral MCP - real astrology your AI agent can trust, with a dual-engine precision audit">
+  <link rel="canonical" href="https://astral.delx.ai/">
+  <link rel="alternate" href="https://www.npmjs.com/package/astral-mcp">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="stylesheet" href="assets/site.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://astral.delx.ai/#website",
+        "url": "https://astral.delx.ai/",
+        "name": "Astral MCP",
+        "description": "Local-first, precision-audited astrology MCP server for AI agents.",
+        "publisher": { "@id": "https://github.com/davidmosiah#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://github.com/davidmosiah#person",
+        "name": "David Mosiah",
+        "url": "https://github.com/davidmosiah"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://astral.delx.ai/#software",
+        "name": "Astral MCP",
+        "url": "https://astral.delx.ai/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Node.js 20+ (cross-platform)",
+        "softwareVersion": "0.2.0",
+        "programmingLanguage": "TypeScript",
+        "downloadUrl": "https://www.npmjs.com/package/astral-mcp",
+        "installUrl": "https://www.npmjs.com/package/astral-mcp",
+        "license": "https://github.com/davidmosiah/astral-mcp/blob/main/LICENSE",
+        "description": "Local-first MCP server that gives AI agents precision-audited natal charts, transits, synastry and moon phases. Every natal chart is computed by one ephemeris and independently re-derived by a second; mismatches are flagged for review instead of silently returned. No API key, no account.",
+        "author": { "@id": "https://github.com/davidmosiah#person" },
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+          "Natal chart computation with precision audit",
+          "Current and upcoming transits",
+          "Synastry comparison of two charts",
+          "Moon phase, sign and illumination",
+          "Birthplace geocoding to lat/lon/timezone",
+          "Seven house systems and tropical/sidereal zodiacs",
+          "Dual-engine cross-check (circular-natal-horoscope-js verified by astronomy-engine)"
+        ],
+        "sameAs": [
+          "https://www.npmjs.com/package/astral-mcp",
+          "https://github.com/davidmosiah/astral-mcp"
+        ]
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://github.com/davidmosiah/astral-mcp#source",
+        "name": "astral-mcp",
+        "codeRepository": "https://github.com/davidmosiah/astral-mcp",
+        "url": "https://astral.delx.ai/",
+        "programmingLanguage": "TypeScript",
+        "runtimePlatform": "Node.js",
+        "license": "https://github.com/davidmosiah/astral-mcp/blob/main/LICENSE",
+        "author": { "@id": "https://github.com/davidmosiah#person" }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://astral.delx.ai/#faq-schema",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does Astral MCP need an API key or account?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Run npx -y astral-mcp and start calling charts immediately. There is no OAuth, no account and no birthplace database to install. The only optional network call is birthplace geocoding via OpenStreetMap."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does the precision audit do?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every natal chart is computed by the primary ephemeris (circular-natal-horoscope-js) and each planet's longitude is independently re-derived by a verifier (astronomy-engine). A chart is marked verified only when every planet agrees within a tight tolerance and lands in the same sign; otherwise it is flagged review instead of silently returning a wrong placement."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What should an agent call first?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Start with astral_capabilities, then astral_search_birthplace to resolve a city to latitude/longitude/timezone, then astral_compute_natal_chart. Go deeper with astral_current_transits, astral_synastry or astral_moon_phase."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Astral MCP write interpretations?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No, by design. It returns structured astrology data (planets, houses, aspects, chart signature, precision audit). The calling model writes any interpretation, so the reading stays in your agent's voice."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="stage-light stage-light-a" aria-hidden="true"></div>
+  <div class="stage-light stage-light-b" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Astral MCP home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>
+        <strong>Astral MCP</strong>
+        <small>Astrology for AI agents</small>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#why">Why it matters</a>
+      <a href="#tools">Tools</a>
+      <a href="#precision">Precision</a>
+      <a href="#faq">FAQ</a>
+      <a href="#setup">Setup</a>
+      <a href="#use">Prompts</a>
+      <a href="#privacy">Privacy</a>
+      <a class="nav-pill" href="https://github.com/davidmosiah/astral-mcp">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">astral.delx.ai · open source · local-first</p>
+        <h1><span>Real astrology</span><span class="grad">your AI can trust.</span></h1>
+        <p class="hero-text">
+          Astral MCP is a local-first bridge that gives MCP-aware agents real astrology: natal charts, transits, synastry and moon phases. Every chart is computed by one ephemeris and independently re-derived by a second, so your agent reasons over verified placements, not silent errors. No API key, no account.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#setup">Install in one command</a>
+          <a class="button secondary" href="#agents">Give this to your agent</a>
+        </div>
+        <div class="hero-command" data-reveal>
+          <code>npx -y astral-mcp</code>
+          <button type="button" data-copy="npx -y astral-mcp">Copy install</button>
+        </div>
+        <ul class="hero-proof" aria-label="Project highlights">
+          <li><strong>10 tools</strong><span>agent-discoverable astrology actions</span></li>
+          <li><strong>2 ephemerides</strong><span>every chart cross-checked</span></li>
+          <li><strong>0 API keys</strong><span>no OAuth, no account</span></li>
+          <li><strong>&lt; 0.01&deg;</strong><span>worst cross-engine delta</span></li>
+        </ul>
+      </div>
+
+      <aside class="cinema-card" aria-label="Cinematic Astral MCP natal chart illustration" data-reveal>
+        <img src="assets/hero-cinematic.svg" alt="Interface card showing a natal chart wheel for 23 Feb 1989 with a dual-engine precision audit returning a verified status" width="980" height="1040">
+      </aside>
+    </section>
+
+    <section class="notice" aria-label="Project notice" data-reveal>
+      <strong>Stateless &amp; offline.</strong>
+      <span>Astral MCP stores nothing and holds no secrets. The only optional network call is birthplace geocoding via OpenStreetMap, which sends just the place name you pass. Every other tool runs fully offline.</span>
+    </section>
+
+    <section class="launch-strip" aria-label="Project links" data-reveal>
+      <a href="https://astral.delx.ai/"><span>Primary site</span><strong>astral.delx.ai</strong></a>
+      <a href="https://github.com/davidmosiah/astral-mcp"><span>Source</span><strong>GitHub repo</strong></a>
+      <a href="https://www.npmjs.com/package/astral-mcp"><span>Install</span><strong>npm package</strong></a>
+      <a href="https://alkhemia.app"><span>Engine origin</span><strong>Alkhemia app</strong></a>
+    </section>
+
+    <section class="story-section" id="why">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">The product idea</p>
+        <h2>From birth data to a chart your model can read.</h2>
+        <p class="section-lede">Most astrology libraries are fragile single-engine wrappers and most "astrology APIs" want a key and a subscription. Agents need something they can trust and call instantly.</p>
+      </div>
+      <div class="story-grid">
+        <article class="story-card" data-reveal>
+          <span>01</span>
+          <h3>It just works</h3>
+          <p><code>npx -y astral-mcp</code> and you are calling charts. No OAuth, no account, no birthplace database to install.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>02</span>
+          <h3>It checks itself</h3>
+          <p>Every natal chart is re-derived planet by planet by a second ephemeris. Disagreements beyond tolerance are flagged <code>review</code>, never returned silently.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>03</span>
+          <h3>It stays in your voice</h3>
+          <p>Astral MCP returns structured data only. Your model writes the reading, so the interpretation matches your agent's tone.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="story-section" id="data">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Data availability</p>
+        <h2>Clear about what it computes.</h2>
+        <p class="section-lede">The computation core is ported from the <a href="https://alkhemia.app">Alkhemia</a> app and kept framework-free. Here is exactly what ships, what is planned, and what is out of scope by design.</p>
+      </div>
+      <div class="story-grid">
+        <article class="story-card" data-reveal>
+          <span>Yes</span>
+          <h3>Computed today</h3>
+          <p>Planets (Sun&ndash;Pluto), Ascendant, MC/IC, houses, major aspects with orb and applying/separating, chart signature (dominant element, modality, patterns, stelliums), retrogrades and timezone/DST handling.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>Soon</span>
+          <h3>Planned</h3>
+          <p>Lunar nodes, Chiron, asteroids, fixed stars and minor aspects are on the roadmap, not yet shipped.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>No</span>
+          <h3>Out of scope</h3>
+          <p>Interpretation text is intentionally excluded. Astral MCP returns structured data; the calling model writes the reading.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="story-section" id="tools">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">The 10 tools</p>
+        <h2>Everything an agent can call.</h2>
+        <p class="section-lede">Tool names are stable and agent-discoverable. House systems: placidus, koch, campanus, regiomontanus, topocentric, equal-house, whole-sign. Zodiacs: tropical and sidereal.</p>
+      </div>
+      <div class="story-grid">
+        <article class="story-card" data-reveal>
+          <span>Core</span>
+          <h3><code>astral_compute_natal_chart</code></h3>
+          <p>Full natal chart &mdash; planets, houses, aspects, signature &mdash; precision-audited by default.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>Core</span>
+          <h3><code>astral_current_transits</code></h3>
+          <p>Current and upcoming transits to a natal chart, with the moon phase included.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>Core</span>
+          <h3><code>astral_synastry</code></h3>
+          <p>Compare two charts, scored across harmony, chemistry, communication and growth.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>Core</span>
+          <h3><code>astral_moon_phase</code></h3>
+          <p>Moon phase, sign and illumination for any date &mdash; no birth data required.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>Util</span>
+          <h3><code>astral_search_birthplace</code></h3>
+          <p>Geocode a place name to latitude, longitude and timezone via OpenStreetMap.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>Util</span>
+          <h3><code>astral_demo</code></h3>
+          <p>A fully-worked example chart (Greenwich, noon, Y2K) with its audit &mdash; no input, no network.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>Meta</span>
+          <h3><code>astral_capabilities</code></h3>
+          <p>What this server supports: house systems, zodiacs, bodies, aspects and limits.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>Meta</span>
+          <h3><code>astral_data_inventory</code></h3>
+          <p>Data domains and the recommended first calls for an agent.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>Meta</span>
+          <h3><code>astral_agent_manifest</code></h3>
+          <p>Install and usage rules written for agents to follow on first run.</p>
+        </article>
+        <article class="story-card" data-reveal>
+          <span>Meta</span>
+          <h3><code>astral_connection_status</code></h3>
+          <p>Health check via a sample chart and a live dual-engine audit.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="architecture-section" id="precision">
+      <div class="architecture-copy" data-reveal>
+        <p class="eyebrow">Dual-engine precision</p>
+        <h2>Two ephemerides. One verified chart.</h2>
+        <p class="section-lede">The primary engine computes the chart; the verifier re-derives each planet's ecliptic longitude independently. A chart is <code>verified</code> only when every planet agrees within tolerance and lands in the same sign. Across a built-in accuracy suite spanning 1945&ndash;2010 and six timezones, the worst cross-engine disagreement is under 0.01&deg;.</p>
+        <div class="architecture-points">
+          <article>
+            <strong>Primary engine</strong>
+            <span><code>circular-natal-horoscope-js</code> computes planets, houses and aspects.</span>
+          </article>
+          <article>
+            <strong>Independent verifier</strong>
+            <span><code>astronomy-engine</code> re-derives each planet's longitude from scratch.</span>
+          </article>
+          <article>
+            <strong>Fail loud, not silent</strong>
+            <span>Disagreements are flagged <code>review</code>, so a wrong placement is never returned as fact.</span>
+          </article>
+        </div>
+      </div>
+      <figure class="architecture-visual" data-reveal>
+        <img src="assets/dual-engine.svg" alt="Diagram: birth data flows into a primary ephemeris and a verifier ephemeris; the cross-check returns a verified chart or flags it for review" width="900" height="620">
+      </figure>
+    </section>
+
+    <section class="faq-section" id="faq">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Questions people ask first</p>
+        <h2>Precise answers before anyone installs.</h2>
+        <p class="section-lede">A trustworthy astrology bridge should be explicit about setup, accuracy, and where the model's job begins.</p>
+      </div>
+      <div class="faq-grid">
+        <details class="faq-item" data-reveal open>
+          <summary>Does it need an API key or account?</summary>
+          <p>No. Run <code>npx -y astral-mcp</code> and start calling charts immediately &mdash; no OAuth, no account, no birthplace database to install. The only optional network call is birthplace geocoding via OpenStreetMap.</p>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What does the precision audit do?</summary>
+          <p>Every chart is computed by <code>circular-natal-horoscope-js</code> and re-derived planet by planet by <code>astronomy-engine</code>. It is <code>verified</code> only when every planet agrees within tolerance and shares the same sign; otherwise it is flagged <code>review</code>.</p>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What should my agent call first?</summary>
+          <p>Start with <code>astral_capabilities</code>, then <code>astral_search_birthplace</code> to resolve a city, then <code>astral_compute_natal_chart</code>. Go deeper with transits, synastry or moon phase.</p>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Does it write the interpretation?</summary>
+          <p>No, by design. It returns structured data (planets, houses, aspects, signature, audit). Your model writes the reading, so it stays in your agent's voice. Pass the <strong>birthplace</strong> timezone, not the caller's, and include <code>birth_time</code> for an accurate Ascendant and houses.</p>
+        </details>
+      </div>
+      <p class="inline-link-row" data-reveal>
+        <a href="llms.txt">Read the llms.txt</a>
+        <a href="https://github.com/davidmosiah/astral-mcp#readme">Full README</a>
+      </p>
+    </section>
+
+    <section class="setup-section" id="setup">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Zero-setup install</p>
+        <h2>Install it in about 60 seconds.</h2>
+        <p class="section-lede">There is nothing to authenticate. Add one MCP server to your client and start calling tools. Works in Claude Desktop, Cursor, Hermes and any client that speaks MCP over stdio.</p>
+      </div>
+
+      <div class="path-grid">
+        <article class="path-card" data-reveal>
+          <span>Path A</span>
+          <h3>I am a human</h3>
+          <p>Add the MCP config below to your client, reload, then call <code>astral_demo</code> to see a worked chart before sending real birth data.</p>
+        </article>
+        <article class="path-card agent-path" data-reveal>
+          <span>Path B</span>
+          <h3>I want my agent to help</h3>
+          <p>Copy the delegation prompt below. It tells your assistant exactly what to install and how to verify the connection safely.</p>
+          <a href="#agents">Jump to agent prompt</a>
+        </article>
+      </div>
+
+      <div class="setup-flow">
+        <article class="setup-card command-card" data-reveal>
+          <div class="setup-topline">Step 1</div>
+          <h3>Run it directly (optional)</h3>
+          <p>Want to try it from a terminal first? Run it over stdio, or switch to streamable HTTP with one environment variable.</p>
+          <div class="terminal">
+            <button type="button" data-copy="npx -y astral-mcp&#10;ASTRAL_MCP_TRANSPORT=http npx -y astral-mcp">Copy commands</button>
+<pre><code>npx -y astral-mcp                              # stdio (default)
+ASTRAL_MCP_TRANSPORT=http npx -y astral-mcp    # streamable HTTP on 127.0.0.1:3000</code></pre>
+          </div>
+          <p class="small-note">Nothing is stored and no credentials exist. Every tool but optional geocoding runs fully offline.</p>
+        </article>
+
+        <article class="setup-card" data-reveal>
+          <div class="setup-topline">Step 2</div>
+          <h3>Add the MCP config to your client</h3>
+          <p>Use it with Claude Desktop, Cursor, Windsurf, Hermes, OpenClaw or any client that supports MCP over stdio.</p>
+          <div class="client-pills" role="list" aria-label="Supported clients">
+            <span>Claude</span>
+            <span>Cursor</span>
+            <span>Windsurf</span>
+            <span>Hermes</span>
+            <span>OpenClaw</span>
+            <span>Generic MCP</span>
+          </div>
+          <div class="terminal">
+            <button type="button" data-copy='{
+  "mcpServers": {
+    "astral": {
+      "command": "npx",
+      "args": ["-y", "astral-mcp"]
+    }
+  }
+}'>Copy config</button>
+<pre><code>{
+  "mcpServers": {
+    "astral": {
+      "command": "npx",
+      "args": ["-y", "astral-mcp"]
+    }
+  }
+}</code></pre>
+          </div>
+          <p class="small-note">That is the whole setup. There is nothing to authenticate.</p>
+        </article>
+
+        <article class="setup-card" data-reveal>
+          <div class="setup-topline">Step 3</div>
+          <h3>See it before you connect</h3>
+          <p>Call <code>astral_demo</code> for a fully-worked example chart (Greenwich, noon, Y2K) including its precision audit &mdash; no input, no network, no auth. It shows the exact payload shape before you send real birth data.</p>
+          <details class="config-details">
+            <summary>Show the payload-verbosity modes</summary>
+            <div class="copy-list" style="margin-top:1rem">
+              <div>
+                <span>full</span>
+                <code>complete payload + per-planet precision audit (~6.9 KB)</code>
+                <button type="button" data-copy="full">Copy</button>
+              </div>
+              <div>
+                <span>structured</span>
+                <code>same shape, derivable fields dropped</code>
+                <button type="button" data-copy="structured">Copy</button>
+              </div>
+              <div>
+                <span>summary</span>
+                <code>luminaries + Ascendant + signature + top aspects (~1.2 KB)</code>
+                <button type="button" data-copy="summary">Copy</button>
+              </div>
+            </div>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section class="use-section" id="use">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Prompts that feel natural</p>
+        <h2>Ask in plain language.</h2>
+        <p class="section-lede">Your agent resolves the birthplace, computes the chart, and reasons over verified placements. Try these.</p>
+      </div>
+      <div class="prompt-grid">
+        <article class="prompt-card" data-reveal>
+          <span>Natal</span>
+          <h3>Read my chart</h3>
+          <p>What's my natal chart? I was born 23 Feb 1989, 14:30, in Fortaleza, Brazil.</p>
+          <button type="button" data-copy="What's my natal chart? I was born 23 Feb 1989, 14:30, in Fortaleza, Brazil.">Copy prompt</button>
+        </article>
+        <article class="prompt-card" data-reveal>
+          <span>Transits</span>
+          <h3>What's hitting now</h3>
+          <p>Any big transits hitting my chart this week? Use my birth data and tell me what to watch.</p>
+          <button type="button" data-copy="Any big transits hitting my chart this week? Use my birth data and tell me what to watch.">Copy prompt</button>
+        </article>
+        <article class="prompt-card" data-reveal>
+          <span>Synastry</span>
+          <h3>Compare two people</h3>
+          <p>How compatible are we? Here are two birth datas &mdash; score our harmony, chemistry, communication and growth.</p>
+          <button type="button" data-copy="How compatible are we? Here are two birth datas — score our harmony, chemistry, communication and growth.">Copy prompt</button>
+        </article>
+        <article class="prompt-card" data-reveal>
+          <span>Moon</span>
+          <h3>Today's moon</h3>
+          <p>What phase is the moon in today, what sign is it in, and how illuminated is it?</p>
+          <button type="button" data-copy="What phase is the moon in today, what sign is it in, and how illuminated is it?">Copy prompt</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="privacy-section" id="privacy">
+      <div class="privacy-copy" data-reveal>
+        <p class="eyebrow">Trust boundary</p>
+        <h2>Nothing stored. No secrets.</h2>
+        <p>Astral MCP is stateless and computational. There are no credentials to leak because none exist, and the only data that ever leaves your machine is a place name &mdash; and only if you call geocoding.</p>
+      </div>
+      <div class="privacy-grid">
+        <article data-reveal>
+          <strong>Stateless</strong>
+          <p>Nothing is written to disk and no history is kept between calls.</p>
+        </article>
+        <article data-reveal>
+          <strong>No keys</strong>
+          <p>No API key, no OAuth, no account. There is nothing to authenticate or rotate.</p>
+        </article>
+        <article data-reveal>
+          <strong>Offline by default</strong>
+          <p>Every tool but optional geocoding runs without any network access.</p>
+        </article>
+        <article data-reveal>
+          <strong>Minimal egress</strong>
+          <p><code>astral_search_birthplace</code> sends only the place-name string to OpenStreetMap.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="agent-section" id="agents">
+      <div class="agent-panel" data-reveal>
+        <div>
+          <p class="eyebrow">For AI agents</p>
+          <h2>A delegation prompt that does not guess.</h2>
+          <p>If a non-technical user wants their assistant to install the bridge, this prompt gives the agent enough structure to proceed and verify safely.</p>
+        </div>
+        <div class="terminal">
+          <button type="button" data-copy="Install the Astral MCP server for me. Repository: https://github.com/davidmosiah/astral-mcp. npm package: astral-mcp. There is no API key and no account. Add this MCP config to my client: { &quot;mcpServers&quot;: { &quot;astral&quot;: { &quot;command&quot;: &quot;npx&quot;, &quot;args&quot;: [&quot;-y&quot;, &quot;astral-mcp&quot;] } } }. After reloading MCP, call astral_agent_manifest and astral_capabilities to learn the contract, then call astral_connection_status to confirm the dual-engine precision audit returns verified. If this is Hermes, reload MCP with hermes mcp test astral. Finally call astral_demo and show me the worked example chart.">Copy agent prompt</button>
+<pre><code>Install the Astral MCP server for me.
+Repository: https://github.com/davidmosiah/astral-mcp
+npm package: astral-mcp  (no API key, no account)
+
+Add this MCP config to my client:
+{ "mcpServers": { "astral": { "command": "npx", "args": ["-y", "astral-mcp"] } } }
+
+After reloading MCP:
+- call astral_agent_manifest and astral_capabilities to learn the contract
+- call astral_connection_status to confirm the audit returns "verified"
+- call astral_demo and show me the worked example chart</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="community-section" id="community">
+      <div class="community-card" data-reveal>
+        <div>
+          <p class="eyebrow">For builders</p>
+          <h2>Open source, with a clear edge.</h2>
+          <p>Built by <a href="https://github.com/davidmosiah">David Mosiah</a> for people building practical AI-agent systems. The astrology engine is ported from the <a href="https://alkhemia.app">Alkhemia</a> app and kept framework-free, so the computation core in <code>src/engine/</code> is easy to understand and reuse.</p>
+          <p>MIT licensed. Run the accuracy suite yourself with <code>npm run test:accuracy</code> and the full gate with <code>npm test</code>.</p>
+        </div>
+        <div class="community-actions">
+          <a class="button primary" href="https://github.com/davidmosiah/astral-mcp/issues/new">Open an issue</a>
+          <a class="button secondary" href="https://github.com/davidmosiah/astral-mcp/blob/main/AGENTS.md">Dev rules</a>
+          <a class="button secondary" href="https://www.npmjs.com/package/astral-mcp">npm package</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div data-reveal>
+        <p class="eyebrow">Open source astrology agents</p>
+        <h2>Give your agent a sky it can trust.</h2>
+        <p>Star the repo, inspect the engine, open issues or adapt the bridge for your own agent workflow.</p>
+      </div>
+      <div class="closing-actions" data-reveal>
+        <a class="button primary" href="https://github.com/davidmosiah/astral-mcp">Open GitHub</a>
+        <a class="button secondary" href="https://www.npmjs.com/package/astral-mcp">npm package</a>
+        <a class="button secondary" href="https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.davidmosiah/astral-mcp">MCP Registry</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><strong>Astral MCP</strong> by <a href="https://github.com/davidmosiah">David Mosiah</a>. MIT licensed. MCP name <code>io.github.davidmosiah/astral-mcp</code>.</p>
+    <p>Astrology engine ported from the <a href="https://alkhemia.app">Alkhemia</a> app. Precision via <a href="https://www.npmjs.com/package/circular-natal-horoscope-js">circular-natal-horoscope-js</a> cross-checked by <a href="https://www.npmjs.com/package/astronomy-engine">astronomy-engine</a>.</p>
+    <p>Astral MCP returns structured astrology data for agent workflows. It is not financial, medical, legal or psychological advice.</p>
+  </footer>
+
+  <script src="assets/site.js" defer></script>
+</body>
+</html>

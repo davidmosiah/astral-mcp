@@ -1,0 +1,69 @@
+<svg width="900" height="620" viewBox="0 0 900 620" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">Dual-engine precision audit architecture</title>
+  <desc id="d">Birth data flows into a primary ephemeris and a verifier ephemeris; the cross-check returns a verified chart or flags it for review.</desc>
+  <defs>
+    <linearGradient id="card" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#C4B5FD" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#C4B5FD" stop-opacity="0.04"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" x2="1">
+      <stop stop-color="#0EA5A3" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#0EA5A3" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="620" rx="36" fill="#0B1026"/>
+  <g opacity="0.08" stroke="#C4B5FD">
+    <path d="M0 120H900M0 240H900M0 360H900M0 480H900"/>
+    <path d="M150 0V620M300 0V620M450 0V620M600 0V620M750 0V620"/>
+  </g>
+  <g fill="#FFFFFF">
+    <circle cx="80" cy="70" r="1.6" opacity="0.7"/>
+    <circle cx="820" cy="540" r="1.6" opacity="0.6"/>
+    <circle cx="450" cy="40" r="1.4" opacity="0.6"/>
+    <circle cx="60" cy="540" r="1.4" opacity="0.55"/>
+  </g>
+
+  <!-- birth data input -->
+  <rect x="60" y="258" width="190" height="104" rx="22" fill="url(#card)" stroke="#C4B5FD" stroke-opacity="0.2"/>
+  <text x="155" y="300" fill="#8A86AE" font-family="'SF Mono', Menlo, monospace" font-size="14" font-weight="800" text-anchor="middle">INPUT</text>
+  <text x="155" y="326" fill="#ECE9FB" font-family="Avenir, Helvetica, sans-serif" font-size="17" font-weight="800" text-anchor="middle">Birth data</text>
+  <text x="155" y="348" fill="#8A86AE" font-family="Avenir, Helvetica, sans-serif" font-size="13" text-anchor="middle">date · time · lat/lon</text>
+
+  <!-- flow lines to engines -->
+  <path d="M250 290 C330 250 360 200 430 196" stroke="url(#flow)" stroke-width="3" fill="none"/>
+  <path d="M250 330 C330 370 360 420 430 424" stroke="url(#flow)" stroke-width="3" fill="none"/>
+
+  <!-- primary engine -->
+  <rect x="430" y="150" width="240" height="92" rx="20" fill="#7C3AED" fill-opacity="0.14" stroke="#A78BFA" stroke-opacity="0.5"/>
+  <text x="550" y="186" fill="#C4B5FD" font-family="'SF Mono', Menlo, monospace" font-size="13" font-weight="800" text-anchor="middle">PRIMARY</text>
+  <text x="550" y="212" fill="#ECE9FB" font-family="Avenir, Helvetica, sans-serif" font-size="16" font-weight="800" text-anchor="middle">circular-natal-</text>
+  <text x="550" y="232" fill="#ECE9FB" font-family="Avenir, Helvetica, sans-serif" font-size="16" font-weight="800" text-anchor="middle">horoscope-js</text>
+
+  <!-- verifier engine -->
+  <rect x="430" y="378" width="240" height="92" rx="20" fill="#0EA5A3" fill-opacity="0.14" stroke="#0EA5A3" stroke-opacity="0.55"/>
+  <text x="550" y="414" fill="#5EEAD4" font-family="'SF Mono', Menlo, monospace" font-size="13" font-weight="800" text-anchor="middle">VERIFIER</text>
+  <text x="550" y="446" fill="#ECE9FB" font-family="Avenir, Helvetica, sans-serif" font-size="16" font-weight="800" text-anchor="middle">astronomy-engine</text>
+
+  <!-- cross-check node -->
+  <path d="M670 196 C730 220 730 280 752 300" stroke="url(#flow)" stroke-width="3" fill="none"/>
+  <path d="M670 424 C730 400 730 340 752 320" stroke="url(#flow)" stroke-width="3" fill="none"/>
+  <circle cx="772" cy="310" r="20" fill="#FBBF24" fill-opacity="0.16" stroke="#FBBF24" stroke-opacity="0.6"/>
+  <text x="772" y="316" fill="#FDE68A" font-family="Avenir, Helvetica, sans-serif" font-size="18" font-weight="900" text-anchor="middle">Δ</text>
+
+  <!-- result -->
+  <rect x="640" y="500" width="200" height="76" rx="18" fill="#0EA5A3" fill-opacity="0.16" stroke="#5EEAD4" stroke-opacity="0.5"/>
+  <circle cx="676" cy="538" r="7" fill="#5EEAD4"/>
+  <text x="696" y="544" fill="#5EEAD4" font-family="Avenir, Helvetica, sans-serif" font-size="18" font-weight="900">verified</text>
+  <text x="696" y="566" fill="#8A86AE" font-family="Avenir, Helvetica, sans-serif" font-size="12">all planets agree</text>
+
+  <rect x="60" y="500" width="200" height="76" rx="18" fill="#F472B6" fill-opacity="0.12" stroke="#F472B6" stroke-opacity="0.45"/>
+  <circle cx="96" cy="538" r="7" fill="#F472B6"/>
+  <text x="116" y="544" fill="#F9A8D4" font-family="Avenir, Helvetica, sans-serif" font-size="18" font-weight="900">review</text>
+  <text x="116" y="566" fill="#8A86AE" font-family="Avenir, Helvetica, sans-serif" font-size="12">flagged, not returned</text>
+
+  <path d="M772 330 L772 510 L760 530" stroke="#5EEAD4" stroke-opacity="0.4" stroke-width="2" fill="none"/>
+  <path d="M150 380 L150 498" stroke="#F472B6" stroke-opacity="0.3" stroke-width="2" fill="none" stroke-dasharray="5 6"/>
+
+  <text x="60" y="84" fill="#A78BFA" font-family="'SF Mono', Menlo, monospace" font-size="15" font-weight="800" letter-spacing="2">DUAL-ENGINE PRECISION AUDIT</text>
+</svg>

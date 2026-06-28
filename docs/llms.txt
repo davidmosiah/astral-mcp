@@ -1,0 +1,71 @@
+# Astral MCP
+
+> Local-first, precision-audited MCP server that gives AI agents real astrology: natal charts, transits, synastry and moon phases. Stateless — no API key, no OAuth, no account.
+
+Primary URL: https://astral.delx.ai/
+GitHub: https://github.com/davidmosiah/astral-mcp
+npm: https://www.npmjs.com/package/astral-mcp
+MCP name: io.github.davidmosiah/astral-mcp
+Creator: David Mosiah, https://github.com/davidmosiah
+Engine origin: ported from the Alkhemia app, https://alkhemia.app
+License: MIT
+
+## What it is
+
+Astral MCP turns birth data into a full, precision-audited astrological reading for MCP-compatible agents. It is stateless and computational: nothing is stored, no credentials exist, and every tool but optional geocoding runs fully offline. Install with `npx -y astral-mcp`.
+
+## Precision (the differentiator)
+
+Every natal chart is computed by a primary ephemeris (circular-natal-horoscope-js) and then independently re-derived, planet by planet, by a verifier (astronomy-engine). A chart is marked `verified` only when every planet agrees within a tight tolerance and lands in the same sign; otherwise it is flagged `review` instead of silently returning a wrong placement. Across a built-in accuracy suite spanning 1945-2010 and six timezones, the worst cross-engine disagreement is under 0.01 degrees.
+
+## Important boundaries
+
+- No API key, no OAuth, no account. The only optional network call is `astral_search_birthplace`, which sends just the place-name string to OpenStreetMap.
+- Returns structured astrology data only — the calling model writes any interpretation.
+- Not included yet: lunar nodes, Chiron, asteroids, fixed stars, minor aspects.
+- Not financial, medical, legal or psychological advice.
+
+## Agent starting points
+
+Call tools in this order:
+
+1. `astral_capabilities` — what this server can compute (house systems, zodiacs, bodies, aspects, limits)
+2. `astral_search_birthplace` — turn a city into latitude/longitude/timezone
+3. `astral_compute_natal_chart` — the core reading (precision-verified by default)
+4. `astral_current_transits` / `astral_synastry` / `astral_moon_phase` — go deeper
+
+When installing or running inside Hermes/OpenClaw-style agents, read `astral_agent_manifest` first.
+
+## Tools
+
+- astral_compute_natal_chart — planets, houses, aspects, signature, per-planet precision audit
+- astral_current_transits — current + upcoming transits to a natal chart, with moon phase
+- astral_synastry — two-chart comparison scored across harmony/chemistry/communication/growth
+- astral_moon_phase — moon phase, sign and illumination for any date (no birth data)
+- astral_search_birthplace — geocode a place to lat/lon/timezone (OpenStreetMap)
+- astral_demo — fully-worked example chart, no input needed (Greenwich, noon, Y2K)
+- astral_capabilities — supported house systems, zodiacs, bodies, aspects, limits
+- astral_data_inventory — data domains and recommended first calls
+- astral_agent_manifest — install + usage rules for agents
+- astral_connection_status — health check via a sample chart + dual-engine audit
+
+## Notes for accurate readings
+
+- Pass the BIRTHPLACE timezone, not the caller's timezone. `astral_search_birthplace` returns it.
+- `birth_time` is optional; without it noon is assumed and the Ascendant/houses are unreliable (planet signs stay accurate).
+- House systems: placidus, koch, campanus, regiomontanus, topocentric, equal-house, whole-sign.
+- Zodiacs: tropical, sidereal.
+- The three chart tools take a `privacy_mode` verbosity axis: full (default, ~6.9 KB with audit), structured, summary (~1.2 KB).
+
+## Install
+
+```bash
+npx -y astral-mcp                              # stdio (default)
+ASTRAL_MCP_TRANSPORT=http npx -y astral-mcp    # streamable HTTP on 127.0.0.1:3000
+```
+
+MCP client config:
+
+```json
+{ "mcpServers": { "astral": { "command": "npx", "args": ["-y", "astral-mcp"] } } }
+```
