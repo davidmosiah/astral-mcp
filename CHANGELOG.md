@@ -4,6 +4,35 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/) and this project adheres to
 [Semantic Versioning](https://semver.org/).
 
+## [0.3.0] - 2026-08-01
+
+### Fixed
+- **`astral_demo` advertised an input the server would have rejected.** The demo
+  exists so an agent sees the contract before sending real birth data, but its
+  `input` block was the engine's internal camelCase shape (`birthDate`,
+  `birthTime`) instead of the wire contract `astral_compute_natal_chart`
+  actually accepts (`birth_date`, `birth_time`). The input schema is strict, so
+  an agent that copied the example — the single most likely thing to do with a
+  worked example — got `Invalid arguments ... unrecognized keys birthDate,
+  birthTime` and never reached a chart. `demo.input` is now the exact,
+  copy-pasteable argument object.
+- `astral_demo`'s `chart` omitted `meta.privacy_mode`, which every real
+  `astral_compute_natal_chart` response carries. The demo now runs through the
+  same verbosity reducer as the real tool, so the example carries the markers an
+  agent will actually receive.
+
+### Added
+- `npm run test:demo-contract`, wired into `npm test`. It drives the real MCP
+  server in memory, sends `astral_demo`'s own `input` to
+  `astral_compute_natal_chart`, and fails in both directions: keys the demo
+  invents, and contract keys it omits. Arguments are checked against the tool's
+  published JSON Schema — an invented or missing argument fails before the call
+  does. 236 key paths verified.
+
+### Notes
+- A worked example nobody compares against reality is not documentation, it is a
+  second, unmaintained contract. This gate makes divergence a build failure.
+
 ## [0.2.0] - 2026-06-07
 
 ### Added

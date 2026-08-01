@@ -37,7 +37,7 @@ import {
   formatBirthplaces
 } from "../services/format.js";
 import { applyNatalPrivacy, applyTransitsPrivacy, applySynastryPrivacy } from "../services/verbosity.js";
-import { buildDemo } from "../services/demo.js";
+import { buildDemo, buildDemoChart } from "../services/demo.js";
 import { buildCapabilities } from "../services/capabilities.js";
 import { buildDataInventory } from "../services/inventory.js";
 import { buildAgentManifest } from "../services/agent-manifest.js";
@@ -232,14 +232,15 @@ export function registerAstralTools(server: McpServer): void {
     {
       title: "Astral Demo",
       description:
-        "Return a fully-worked example natal chart (Greenwich, noon, 2000-01-01) including a precision audit, so you can see the exact payload shape before sending real birth data. No input, no network, no auth.",
+        "Return a fully-worked example natal chart (Greenwich, noon, 2000-01-01) including a precision audit, so you can see the exact payload shape before sending real birth data. The returned 'input' is a ready-to-send argument object for astral_compute_natal_chart — copy it and swap in real birth data; 'chart' is exactly what that call returns at the default privacy_mode=full. No input, no network, no auth.",
       inputSchema: ResponseOnlyInputSchema.shape,
       outputSchema: DemoOutputSchema.shape,
       annotations: READ_DETERMINISTIC
     },
     async ({ response_format }) => {
-      const demo = buildDemo();
-      return makeResponse(demo, response_format, formatNatalChart(demo.chart, demo.chart.precision));
+      const source = buildDemoChart();
+      const demo = buildDemo(source);
+      return makeResponse(demo, response_format, formatNatalChart(source, source.precision));
     }
   );
 
