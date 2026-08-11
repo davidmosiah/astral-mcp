@@ -1,7 +1,7 @@
 {
   "name": "astral-mcp",
-  "version": "0.3.0",
-  "description": "Local-first, precision-audited MCP server that gives AI agents natal charts, transits, synastry and moon phases — no API key, no account.",
+  "version": "0.3.1",
+  "description": "Local-first, precision-audited MCP server that gives AI agents natal charts, transits, synastry and moon phases \u2014 no API key, no account.",
   "type": "module",
   "bin": {
     "astral-mcp": "dist/index.js",
@@ -80,6 +80,9 @@
   },
   "main": "dist/index.js",
   "overrides": {
-    "@hono/node-server": "2.0.12"
+    "@hono/node-server": "2.1.0",
+    "hono": "4.13.1",
+    "fast-uri": "3.1.5",
+    "ip-address": "10.4.0"
   }
 }
