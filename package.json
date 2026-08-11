@@ -29,7 +29,9 @@
     "test:demo-contract": "node scripts/demo-contract-test.mjs",
     "test:metadata": "node scripts/metadata-check.mjs",
     "test:seo": "node scripts/seo-content-test.mjs",
-    "test": "npm run typecheck && npm run build && npm run smoke && npm run test:accuracy && npm run test:demo-contract && npm run test:metadata && npm run test:seo",
+    "test:indexnow": "node --test scripts/indexnow-test.mjs",
+    "discovery:indexnow": "node scripts/submit-indexnow.mjs",
+    "test": "npm run typecheck && npm run build && npm run smoke && npm run test:accuracy && npm run test:demo-contract && npm run test:metadata && npm run test:seo && npm run test:indexnow",
     "prepublishOnly": "npm test"
   },
   "keywords": [
