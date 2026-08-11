@@ -6,6 +6,7 @@
   "routes": [
     { "src": "/", "dest": "/docs/index.html" },
     { "src": "/guides/what-is-an-astrology-mcp-server", "dest": "/docs/guides/what-is-an-astrology-mcp-server.html" },
+    { "src": "/guides/how-to-generate-a-natal-chart-with-mcp", "dest": "/docs/guides/how-to-generate-a-natal-chart-with-mcp.html" },
     { "src": "/(.*)", "dest": "/docs/$1" }
   ]
 }

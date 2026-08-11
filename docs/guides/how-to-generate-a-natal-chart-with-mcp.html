@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Generate a Natal Chart with MCP: Step-by-Step</title>
+  <meta name="description" content="Generate a precision-audited natal chart with MCP: resolve the birthplace, preserve its timezone, handle unknown birth time and inspect the result.">
+  <meta name="author" content="David Mosiah">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="natal chart MCP, birth chart MCP server, generate natal chart AI agent, astrology MCP workflow, Astral MCP">
+  <meta name="theme-color" content="#070A1C">
+  <meta property="og:title" content="How to Generate a Natal Chart with MCP">
+  <meta property="og:description" content="A practical, bounded workflow for birthplace resolution, precision-audited chart computation and model explanation.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Astral MCP">
+  <meta property="og:url" content="https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp">
+  <meta property="og:image" content="https://astral.delx.ai/assets/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Astral MCP — precision-audited astrology for AI agents">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Generate a Natal Chart with MCP">
+  <meta name="twitter:description" content="From birthplace to a bounded, structured natal-chart explanation in seven steps.">
+  <meta name="twitter:image" content="https://astral.delx.ai/assets/og-card.png">
+  <link rel="canonical" href="https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp">
+  <link rel="alternate" type="text/markdown" href="https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp.md">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp#article",
+        "headline": "How to Generate a Natal Chart with MCP",
+        "description": "A practical workflow for generating a precision-audited natal chart through Model Context Protocol tools.",
+        "url": "https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp",
+        "mainEntityOfPage": "https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp",
+        "datePublished": "2026-08-11",
+        "dateModified": "2026-08-11",
+        "inLanguage": "en-US",
+        "author": { "@type": "Person", "name": "David Mosiah", "url": "https://github.com/davidmosiah" },
+        "publisher": { "@type": "Organization", "name": "Delx", "url": "https://delx.ai" },
+        "about": { "@type": "SoftwareApplication", "name": "Astral MCP", "url": "https://astral.delx.ai/" }
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp#workflow",
+        "name": "Generate a natal chart with MCP",
+        "description": "Connect Astral MCP, resolve a birthplace, compute a precision-audited chart and explain its structured result.",
+        "tool": [
+          { "@type": "HowToTool", "name": "Node.js 20 or newer" },
+          { "@type": "HowToTool", "name": "An MCP-compatible client" },
+          { "@type": "HowToTool", "name": "Astral MCP" }
+        ],
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "Connect Astral MCP", "text": "Configure the astral-mcp command in the MCP client and inspect the demo before using real data." },
+          { "@type": "HowToStep", "position": 2, "name": "Inspect capabilities", "text": "Call astral_capabilities to learn the supported chart contract and exclusions." },
+          { "@type": "HowToStep", "position": 3, "name": "Resolve the birthplace", "text": "Call astral_search_birthplace and choose the intended result with its coordinates and IANA timezone." },
+          { "@type": "HowToStep", "position": 4, "name": "Compute the chart", "text": "Call astral_compute_natal_chart with the birth data, birthplace timezone and precision verification enabled." },
+          { "@type": "HowToStep", "position": 5, "name": "Choose payload size", "text": "Use privacy_mode summary, structured or full according to the question." },
+          { "@type": "HowToStep", "position": 6, "name": "Inspect precision status", "text": "Preserve verified or review status and disclose when birth time was unknown." },
+          { "@type": "HowToStep", "position": 7, "name": "Explain without recomputing", "text": "Ask the model to explain the returned fields while preserving evidence and advice boundaries." }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp#breadcrumbs",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Astral MCP", "item": "https://astral.delx.ai/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://astral.delx.ai/#guides" },
+          { "@type": "ListItem", "position": 3, "name": "Generate a Natal Chart with MCP", "item": "https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp#faq",
+        "mainEntity": [
+          { "@type": "Question", "name": "Can an agent generate a birth chart without an astrology API key?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Astral MCP runs locally through an MCP client and requires no astrology API account." } },
+          { "@type": "Question", "name": "What happens when the birth time is missing?", "acceptedAnswer": { "@type": "Answer", "text": "Noon is assumed and the output records that birth time was unknown. The Ascendant and houses must not be treated as reliable." } },
+          { "@type": "Question", "name": "Does verified mean the reading is scientifically validated?", "acceptedAnswer": { "@type": "Answer", "text": "No. Verified means two computational paths agreed within the configured tolerance; it does not validate astrology or the interpretation." } },
+          { "@type": "Question", "name": "Is birth data stored?", "acceptedAnswer": { "@type": "Answer", "text": "No. Astral MCP is stateless and stores no reading history. Only an optional birthplace lookup sends the place-name string to OpenStreetMap." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="article-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="stage-light stage-light-a" aria-hidden="true"></div>
+  <div class="stage-light stage-light-b" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Astral MCP home"><span class="brand-mark" aria-hidden="true"></span><span><strong>Astral MCP</strong><small>Astrology for AI agents</small></span></a>
+    <nav class="nav article-nav" aria-label="Guide navigation"><a href="#answer">Answer</a><a href="#workflow">Workflow</a><a href="#precision">Precision</a><a href="#faq">FAQ</a><a class="nav-pill" href="/">Explore Astral MCP</a></nav>
+  </header>
+
+  <main id="main" class="article-shell">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Astral MCP</a><span aria-hidden="true">/</span><span>Guides</span><span aria-hidden="true">/</span><span>Natal chart with MCP</span></nav>
+    <article>
+      <header class="article-hero">
+        <p class="eyebrow">Natal chart MCP · step-by-step</p>
+        <h1>How to generate a <span class="grad">natal chart with MCP</span></h1>
+        <p class="article-deck">A reproducible path from a place name to structured chart data — with the timezone, birth-time, precision and privacy boundaries kept attached.</p>
+        <div class="article-meta"><span>Updated 11 Aug 2026</span><span>10 minute read</span><a href="how-to-generate-a-natal-chart-with-mcp.md">Markdown for agents</a></div>
+      </header>
+
+      <section class="answer-panel" id="answer">
+        <p class="eyebrow">Direct answer</p>
+        <p class="direct-answer">To generate a natal chart with MCP, connect Astral MCP to an MCP-compatible client, inspect <code>astral_capabilities</code>, resolve the birthplace with <code>astral_search_birthplace</code>, and pass the selected latitude, longitude and birthplace timezone to <code>astral_compute_natal_chart</code>. Keep <code>verify_precision</code> enabled, choose a <code>privacy_mode</code>, and inspect the precision status before asking the model to explain the structured chart.</p>
+        <p>Chart computation runs locally and stores no reading history. The optional birthplace lookup is the only network step.</p>
+      </section>
+
+      <section class="article-section" id="workflow">
+        <div class="article-heading"><p class="eyebrow">Seven bounded steps</p><h2>Compute first. Explain second.</h2><p>The MCP client calls named tools and carries their structured results into model context. The model should explain those fields, not invent or recalculate placements.</p></div>
+        <ol class="workflow-list">
+          <li><strong>Connect Astral MCP</strong><span>Add <code>npx -y astral-mcp</code> to the MCP client. Call <code>astral_connection_status</code> and <code>astral_demo</code> before sending real birth data.</span></li>
+          <li><strong>Inspect the contract</strong><span>Call <code>astral_capabilities</code> for supported house systems, zodiacs, bodies, aspects and exclusions.</span></li>
+          <li><strong>Resolve the birthplace</strong><span>Call <code>astral_search_birthplace</code>, inspect every returned display name and preserve the selected latitude, longitude and timezone together.</span></li>
+          <li><strong>Compute the chart</strong><span>Call <code>astral_compute_natal_chart</code> with the birth date, optional time, coordinates and the birthplace timezone.</span></li>
+          <li><strong>Choose the payload</strong><span>Start with <code>privacy_mode: "summary"</code>; expand only when the question needs more fields.</span></li>
+          <li><strong>Inspect the evidence</strong><span>Keep <code>verify_precision</code> true and preserve <code>verified</code> or <code>review</code> status.</span></li>
+          <li><strong>Explain the result</strong><span>Ask the model to interpret the returned data while disclosing unknown birth time and non-advice boundaries.</span></li>
+        </ol>
+        <p><a href="https://modelcontextprotocol.io/specification/2025-06-18/server/tools">The official MCP tools specification</a> defines the client-to-server tool discovery and call pattern used here.</p>
+      </section>
+
+      <section class="article-section setup-callout" id="input">
+        <div><p class="eyebrow">Core tool input</p><h2>Keep the birthplace fields together.</h2><p>The timezone is the IANA timezone of the birthplace, not the caller's current timezone. If the birth time is unknown, omit it instead of inventing precision.</p></div>
+        <div class="terminal compact-terminal"><pre><code>{
+  "birth_date": "1989-02-23",
+  "birth_time": "14:30",
+  "latitude": -3.7319,
+  "longitude": -38.5267,
+  "timezone": "America/Fortaleza",
+  "house_system": "placidus",
+  "zodiac": "tropical",
+  "verify_precision": true,
+  "privacy_mode": "summary",
+  "response_format": "json"
+}</code></pre></div>
+      </section>
+
+      <section class="article-section" id="birthplace">
+        <div class="article-heading"><p class="eyebrow">Optional network boundary</p><h2>Place search is useful, not unlimited.</h2><p><code>astral_search_birthplace</code> sends the place-name string to the public OpenStreetMap Nominatim service. If you already know the coordinates and historical IANA timezone, skip this call.</p></div>
+        <div class="fact-grid">
+          <article><strong>Choose deliberately</strong><p>Inspect the complete display name rather than accepting the first same-named city.</p></article>
+          <article><strong>Respect the public service</strong><p>The official policy sets an absolute maximum of one request per second and prohibits autocomplete and systematic or bulk queries.</p></article>
+          <article><strong>Do not send secrets</strong><p>Use deliberate, user-triggered place searches only. Never put personal or confidential material in the query.</p></article>
+        </div>
+        <p class="boundary-note">Read the current <a href="https://operations.osmfoundation.org/policies/nominatim/">Nominatim Usage Policy</a>. Astral MCP sends an identifying User-Agent, but callers remain responsible for attribution, rate and acceptable use.</p>
+      </section>
+
+      <section class="article-section split-section" id="precision">
+        <div><p class="eyebrow">Precision boundary</p><h2>Verified means computational agreement.</h2><p>Astral MCP computes the chart with its primary engine and independently re-derives planetary longitudes with <a href="https://github.com/cosinekitty/astronomy">Astronomy Engine</a>. Checked placements must agree within tolerance and remain in the same sign for a <code>verified</code> result.</p><p>A disagreement becomes <code>review</code> instead of being silently accepted.</p><p class="boundary-note">The audit measures computational agreement. It does not validate astrology, prove an interpretation or turn a reading into scientific or predictive fact.</p></div>
+        <figure class="article-figure"><img src="/assets/dual-engine.svg" alt="Birth data enters a primary chart engine and an independent verifier before the result receives verified or review status" width="900" height="620"><figcaption>Verification belongs to the calculated positions, not to interpretive claims.</figcaption></figure>
+      </section>
+
+      <section class="article-section" id="birth-time">
+        <div class="article-heading"><p class="eyebrow">Unknown birth time</p><h2>Missing data must stay visible.</h2><p>When <code>birth_time</code> is omitted, noon is assumed. Planetary signs remain usable within the documented boundary, but the Ascendant and houses are not reliable. The result exposes <code>meta.birthTimeKnown</code> so an agent can keep that disclosure attached.</p></div>
+      </section>
+
+      <section class="article-section" id="payload">
+        <div class="article-heading"><p class="eyebrow">Context economy</p><h2>Start with the smallest useful payload.</h2></div>
+        <div class="article-card-grid">
+          <article class="article-card"><span>01</span><h3>summary</h3><p>Luminaries, Ascendant, chart signature, top aspects and precision status.</p></article>
+          <article class="article-card"><span>02</span><h3>structured</h3><p>Full structure with redundant and derivable fields removed.</p></article>
+          <article class="article-card"><span>03</span><h3>full</h3><p>Every placement, house, aspect and per-planet precision row.</p></article>
+        </div>
+      </section>
+
+      <section class="article-section" id="mistakes">
+        <div class="article-heading"><p class="eyebrow">Failure modes</p><h2>Eight mistakes to avoid.</h2></div>
+        <ol class="workflow-list">
+          <li><strong>Wrong timezone</strong><span>Passing the caller's timezone instead of the birthplace timezone.</span></li>
+          <li><strong>Wrong city</strong><span>Selecting the first geocoder result without reading its full display name.</span></li>
+          <li><strong>Invented time</strong><span>Creating an exact birth time when the source does not provide one.</span></li>
+          <li><strong>False angle confidence</strong><span>Treating the Ascendant and houses as reliable after a noon assumption.</span></li>
+          <li><strong>Hidden skipped audit</strong><span>Disabling <code>verify_precision</code> without telling the user.</span></li>
+          <li><strong>Oversized context</strong><span>Requesting <code>full</code> when <code>summary</code> answers the question.</span></li>
+          <li><strong>Model recomputation</strong><span>Asking the model to guess placements instead of reading tool output.</span></li>
+          <li><strong>Geocoder misuse</strong><span>Using public Nominatim for autocomplete, bulk or confidential queries.</span></li>
+        </ol>
+        <p class="advice-boundary">Astral MCP is not financial, medical, legal or psychological advice. Do not use a chart as evidence for consequential decisions.</p>
+      </section>
+
+      <section class="faq-section article-faq" id="faq">
+        <div class="section-head"><p class="eyebrow">Frequently asked</p><h2>Short answers for agents and builders.</h2></div>
+        <div class="faq-grid">
+          <details class="faq-item" open><summary>Can an agent generate a birth chart without an astrology API key?</summary><p>Yes. Astral MCP runs locally through an MCP client and requires no astrology API account. The optional public geocoder also has no key, but its usage policy applies.</p></details>
+          <details class="faq-item"><summary>What happens when the birth time is missing?</summary><p>Noon is assumed and the output records that the time was unknown. The Ascendant and houses must not be treated as reliable.</p></details>
+          <details class="faq-item"><summary>Does verified mean the reading is scientifically validated?</summary><p>No. It means the two computational paths agreed within tolerance. It does not validate astrology or the model's interpretation.</p></details>
+          <details class="faq-item"><summary>Is birth data stored?</summary><p>No. The server is stateless and stores no reading history. Only an optional birthplace lookup sends the place-name string to OpenStreetMap.</p></details>
+        </div>
+      </section>
+
+      <section class="article-closing">
+        <p class="eyebrow">Continue learning</p><h2>Understand the pattern behind the workflow.</h2>
+        <p>Read <a href="https://astral.delx.ai/guides/what-is-an-astrology-mcp-server">What Is an Astrology MCP Server?</a> for the protocol-level separation between computation, transport and interpretation.</p>
+        <div class="closing-actions"><a class="button primary" href="/">Explore Astral MCP</a><a class="button secondary" href="https://github.com/davidmosiah/astral-mcp">Read the source</a><a class="button secondary" href="how-to-generate-a-natal-chart-with-mcp.md">Markdown for agents</a></div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="footer"><p><strong>Astral MCP</strong> by <a href="https://github.com/davidmosiah">David Mosiah</a>. MIT licensed. MCP name <code>io.github.davidmosiah/astral-mcp</code>.</p><p><a href="/llms.txt">Machine-readable project guide</a> · <a href="how-to-generate-a-natal-chart-with-mcp.md">This article in Markdown</a></p></footer>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>

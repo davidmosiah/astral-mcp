@@ -10,6 +10,7 @@ Install: npx -y astral-mcp
 Binary: astral-mcp-server
 Repository: https://github.com/davidmosiah/astral-mcp
 Canonical guide: https://astral.delx.ai/guides/what-is-an-astrology-mcp-server
+Practical natal-chart guide: https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp
 MCP name: io.github.davidmosiah/astral-mcp
 Author: David Mosiah — https://github.com/davidmosiah
 License: MIT
@@ -18,6 +19,9 @@ Engines: circular-natal-horoscope-js (primary) cross-checked by astronomy-engine
 
 Protocol explainer and safe-use boundaries:
 https://astral.delx.ai/guides/what-is-an-astrology-mcp-server
+
+Step-by-step natal-chart workflow:
+https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp
 
 Recommended agent flow:
 1. astral_capabilities — what this server can compute

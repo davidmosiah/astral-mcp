@@ -923,6 +923,10 @@ p {
     linear-gradient(135deg, rgba(196, 181, 253, 0.12), rgba(196, 181, 253, 0.045));
 }
 
+.community-section .community-card + .community-card {
+  margin-top: 1rem;
+}
+
 .community-card h2 {
   margin-bottom: 0.8rem;
 }
