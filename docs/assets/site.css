@@ -290,6 +290,8 @@ body {
 }
 
 @media (max-width: 620px) {
+  .article-page .stage-light-a { right: 0; }
+  .article-page .stage-light-b { left: 0; }
   .article-page .site-header,
   .article-page .article-shell,
   .article-page .footer { width: min(100% - 1.25rem, 1080px); }
