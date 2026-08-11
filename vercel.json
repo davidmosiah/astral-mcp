@@ -5,6 +5,7 @@
   ],
   "routes": [
     { "src": "/", "dest": "/docs/index.html" },
+    { "src": "/guides/what-is-an-astrology-mcp-server", "dest": "/docs/guides/what-is-an-astrology-mcp-server.html" },
     { "src": "/(.*)", "dest": "/docs/$1" }
   ]
 }

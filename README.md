@@ -30,6 +30,8 @@
 
 Built by [David Mosiah](https://github.com/davidmosiah). The astrology engine is ported from the [Alkhemia](https://alkhemia.app) app.
 
+New to the protocol pattern? Read **[What Is an Astrology MCP Server?](https://astral.delx.ai/guides/what-is-an-astrology-mcp-server)** for the separation between deterministic chart computation and model interpretation, the recommended agent workflow, and the precision/privacy boundaries.
+
 ## Why this exists
 
 Most astrology libraries are fragile single-engine wrappers, and most "astrology APIs" want a key and a subscription. Agents need something they can trust and call instantly. Astral MCP does two things differently:

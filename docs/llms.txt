@@ -7,6 +7,7 @@ Delx ecosystem: https://delx.ai/
 Updated: 2026-08-11
 GitHub: https://github.com/davidmosiah/astral-mcp
 npm: https://www.npmjs.com/package/astral-mcp
+Canonical guide: https://astral.delx.ai/guides/what-is-an-astrology-mcp-server
 MCP name: io.github.davidmosiah/astral-mcp
 Creator: David Mosiah, https://github.com/davidmosiah
 Engine origin: ported from the Alkhemia app, https://alkhemia.app
@@ -15,6 +16,8 @@ License: MIT
 ## What it is
 
 Astral MCP turns birth data into a full, precision-audited astrological reading for MCP-compatible agents. It is stateless and computational: nothing is stored, no credentials exist, and every tool but optional geocoding runs fully offline. Install with `npx -y astral-mcp`.
+
+For the protocol pattern, division between deterministic computation and model interpretation, and the privacy/birth-time boundaries, read https://astral.delx.ai/guides/what-is-an-astrology-mcp-server (Markdown: https://astral.delx.ai/guides/what-is-an-astrology-mcp-server.md).
 
 ## Precision (the differentiator)
 

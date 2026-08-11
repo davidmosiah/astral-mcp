@@ -9,11 +9,15 @@ Package: astral-mcp (npm)
 Install: npx -y astral-mcp
 Binary: astral-mcp-server
 Repository: https://github.com/davidmosiah/astral-mcp
+Canonical guide: https://astral.delx.ai/guides/what-is-an-astrology-mcp-server
 MCP name: io.github.davidmosiah/astral-mcp
 Author: David Mosiah — https://github.com/davidmosiah
 License: MIT
 
 Engines: circular-natal-horoscope-js (primary) cross-checked by astronomy-engine (verifier).
+
+Protocol explainer and safe-use boundaries:
+https://astral.delx.ai/guides/what-is-an-astrology-mcp-server
 
 Recommended agent flow:
 1. astral_capabilities — what this server can compute

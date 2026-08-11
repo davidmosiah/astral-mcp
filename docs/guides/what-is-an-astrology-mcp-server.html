@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What Is an Astrology MCP Server? A Guide for AI Agents</title>
+  <meta name="description" content="An astrology MCP server gives AI agents deterministic natal charts, transits, synastry and moon phases as structured data. Learn the workflow, precision and privacy boundaries.">
+  <meta name="author" content="David Mosiah">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="astrology MCP server, astrology MCP, natal chart MCP, birth chart AI agent, Model Context Protocol astrology, Claude astrology MCP, Cursor astrology MCP">
+  <meta name="theme-color" content="#070A1C">
+  <meta property="og:title" content="What Is an Astrology MCP Server?">
+  <meta property="og:description" content="How AI agents use deterministic astrology tools instead of guessing chart data — with explicit precision and privacy boundaries.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Astral MCP">
+  <meta property="og:url" content="https://astral.delx.ai/guides/what-is-an-astrology-mcp-server">
+  <meta property="og:image" content="https://astral.delx.ai/assets/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Astral MCP — precision-audited astrology for AI agents">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What Is an Astrology MCP Server?">
+  <meta name="twitter:description" content="A practical guide to deterministic natal charts, transits and synastry for MCP-aware AI agents.">
+  <meta name="twitter:image" content="https://astral.delx.ai/assets/og-card.png">
+  <link rel="canonical" href="https://astral.delx.ai/guides/what-is-an-astrology-mcp-server">
+  <link rel="alternate" type="text/markdown" href="https://astral.delx.ai/guides/what-is-an-astrology-mcp-server.md">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://astral.delx.ai/guides/what-is-an-astrology-mcp-server#article",
+        "headline": "What Is an Astrology MCP Server?",
+        "description": "A practical guide to using Model Context Protocol for deterministic astrology computation in AI-agent workflows.",
+        "url": "https://astral.delx.ai/guides/what-is-an-astrology-mcp-server",
+        "mainEntityOfPage": "https://astral.delx.ai/guides/what-is-an-astrology-mcp-server",
+        "datePublished": "2026-08-11",
+        "dateModified": "2026-08-11",
+        "inLanguage": "en-US",
+        "author": { "@type": "Person", "name": "David Mosiah", "url": "https://github.com/davidmosiah" },
+        "publisher": { "@type": "Organization", "name": "Delx", "url": "https://delx.ai" },
+        "about": { "@type": "Thing", "name": "Astrology software using Model Context Protocol" }
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://astral.delx.ai/guides/what-is-an-astrology-mcp-server#workflow",
+        "name": "Use an astrology MCP server with an AI agent",
+        "description": "Discover capabilities, resolve the birthplace, compute a precision-audited chart and let the agent explain structured results.",
+        "tool": [
+          { "@type": "HowToTool", "name": "Node.js 20 or newer" },
+          { "@type": "HowToTool", "name": "MCP-compatible AI client" }
+        ],
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "Discover capabilities", "text": "Call astral_capabilities to inspect supported bodies, aspects, zodiacs, house systems and limits." },
+          { "@type": "HowToStep", "position": 2, "name": "Resolve the birthplace", "text": "Call astral_search_birthplace to obtain latitude, longitude and the birthplace timezone." },
+          { "@type": "HowToStep", "position": 3, "name": "Compute the chart", "text": "Call astral_compute_natal_chart with the birth data and review its precision-audit status." },
+          { "@type": "HowToStep", "position": 4, "name": "Ask a follow-up", "text": "Use transits, synastry or moon-phase tools only when the question requires them." },
+          { "@type": "HowToStep", "position": 5, "name": "Explain the result", "text": "Let the calling model interpret the structured fields while disclosing birth-time and advice boundaries." }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://astral.delx.ai/guides/what-is-an-astrology-mcp-server#breadcrumbs",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Astral MCP", "item": "https://astral.delx.ai/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://astral.delx.ai/#guides" },
+          { "@type": "ListItem", "position": 3, "name": "What Is an Astrology MCP Server?", "item": "https://astral.delx.ai/guides/what-is-an-astrology-mcp-server" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://astral.delx.ai/guides/what-is-an-astrology-mcp-server#faq",
+        "mainEntity": [
+          { "@type": "Question", "name": "Is an astrology MCP server the same as an astrology API?", "acceptedAnswer": { "@type": "Answer", "text": "Not exactly. Both expose computed astrology data, but MCP publishes tool schemas and results in a protocol designed for AI clients. Astral MCP can run locally without an API account." } },
+          { "@type": "Question", "name": "Does Astral MCP generate horoscope prose?", "acceptedAnswer": { "@type": "Answer", "text": "No. It returns structured astrology data only; the calling model writes the explanation or reading." } },
+          { "@type": "Question", "name": "Can it calculate a chart without an exact birth time?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, but noon is assumed. Planetary signs remain usable while the Ascendant and houses must not be treated as reliable." } },
+          { "@type": "Question", "name": "Is birth data uploaded or stored?", "acceptedAnswer": { "@type": "Answer", "text": "No reading history is stored. Only an optional birthplace lookup sends the place-name string to OpenStreetMap; chart computation remains local." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="article-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="stage-light stage-light-a" aria-hidden="true"></div>
+  <div class="stage-light stage-light-b" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Astral MCP home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span><strong>Astral MCP</strong><small>Astrology for AI agents</small></span>
+    </a>
+    <nav class="nav article-nav" aria-label="Guide navigation">
+      <a href="#answer">Answer</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#precision">Precision</a>
+      <a href="#privacy">Privacy</a>
+      <a class="nav-pill" href="/">Explore Astral MCP</a>
+    </nav>
+  </header>
+
+  <main id="main" class="article-shell">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Astral MCP</a><span aria-hidden="true">/</span><span>Guides</span><span aria-hidden="true">/</span><span>Astrology MCP server</span>
+    </nav>
+
+    <article>
+      <header class="article-hero">
+        <p class="eyebrow">Agent infrastructure · practical guide</p>
+        <h1>What is an <span class="grad">astrology MCP server?</span></h1>
+        <p class="article-deck">A precise division of labor: deterministic software computes the chart, an MCP tool carries structured data, and the language model explains the result.</p>
+        <div class="article-meta"><span>Updated 11 Aug 2026</span><span>9 minute read</span><a href="what-is-an-astrology-mcp-server.md">Markdown for agents</a></div>
+      </header>
+
+      <section class="answer-panel" id="answer">
+        <p class="eyebrow">Direct answer</p>
+        <p class="direct-answer">An astrology MCP server connects an AI agent to deterministic astrology tools through the Model Context Protocol. Instead of asking a language model to guess planetary positions, the agent calls named tools that compute a natal chart, transits, synastry or a moon phase and return structured data for the model to explain.</p>
+        <p>Astral MCP is an open-source, local-first implementation. It needs no API key or account, birth data is not persisted, and it returns structured astrology data only.</p>
+      </section>
+
+      <section class="article-section" id="separation">
+        <div class="article-heading">
+          <p class="eyebrow">The important separation</p>
+          <h2>Computation is not interpretation.</h2>
+          <p>An astrology workflow has three distinct jobs. Keeping them separate makes the result easier to inspect, reproduce and explain.</p>
+        </div>
+        <div class="article-card-grid">
+          <article class="article-card"><span>01</span><h3>Engine computes</h3><p>Deterministic code turns date, time, coordinates and timezone into planets, houses, aspects and derived chart fields.</p></article>
+          <article class="article-card"><span>02</span><h3>MCP transports</h3><p>Named tools publish explicit input and output schemas so an agent knows what to call and what came back.</p></article>
+          <article class="article-card"><span>03</span><h3>Model explains</h3><p>The calling model writes the interpretation in the desired voice without inventing the underlying placements.</p></article>
+        </div>
+      </section>
+
+      <section class="article-section" id="workflow">
+        <div class="article-heading">
+          <p class="eyebrow">Recommended workflow</p>
+          <h2>From a city name to a bounded reading.</h2>
+          <p>Call only the tools the question needs. A smaller sequence is easier to audit and sends less birth data through model context.</p>
+        </div>
+        <ol class="workflow-list">
+          <li><strong>Discover capabilities</strong><span>Call <code>astral_capabilities</code> to learn supported bodies, aspects, zodiacs, house systems and limits.</span></li>
+          <li><strong>Resolve the birthplace</strong><span>Call <code>astral_search_birthplace</code> for latitude, longitude and the birthplace timezone.</span></li>
+          <li><strong>Compute the natal chart</strong><span>Call <code>astral_compute_natal_chart</code> and inspect the precision-audit status before interpreting it.</span></li>
+          <li><strong>Go deeper only when asked</strong><span>Use <code>astral_current_transits</code>, <code>astral_synastry</code> or <code>astral_moon_phase</code> for a matching follow-up.</span></li>
+          <li><strong>Explain with the limits attached</strong><span>The model interprets the structured result and discloses missing birth-time or advice boundaries.</span></li>
+        </ol>
+      </section>
+
+      <section class="article-section split-section" id="precision">
+        <div>
+          <p class="eyebrow">Precision boundary</p>
+          <h2>Two engines can catch a silent placement error.</h2>
+          <p>Every Astral MCP natal chart is computed by <code>circular-natal-horoscope-js</code>. Planetary longitudes are independently re-derived with <code>astronomy-engine</code>.</p>
+          <p>A chart is marked <code>verified</code> only when every checked planet agrees within tolerance and remains in the same sign. A disagreement is flagged for review instead of silently accepted.</p>
+          <p class="boundary-note">That verifies computational agreement. It does not turn an astrological interpretation into scientific, clinical or predictive fact.</p>
+        </div>
+        <figure class="article-figure">
+          <img src="/assets/dual-engine.svg" alt="Birth data enters two independent ephemeris engines; agreement produces a verified chart and disagreement produces review status" width="900" height="620">
+          <figcaption>Primary computation and independent verification stay visible as separate steps.</figcaption>
+        </figure>
+      </section>
+
+      <section class="article-section" id="privacy">
+        <div class="article-heading">
+          <p class="eyebrow">Privacy and accuracy boundary</p>
+          <h2>Local-first does not mean context-free.</h2>
+          <p>The server stores nothing, but the user and client still decide which birth data enters an agent conversation.</p>
+        </div>
+        <div class="fact-grid">
+          <article><strong>No persistence</strong><p>Birth data is not persisted. Astral MCP is stateless and writes no reading history.</p></article>
+          <article><strong>No secrets</strong><p>There is no API key, OAuth flow or account. Chart tools run locally.</p></article>
+          <article><strong>One optional egress</strong><p>Birthplace search sends only the place-name string to OpenStreetMap.</p></article>
+          <article><strong>Compact mode</strong><p>Use <code>privacy_mode=summary</code> when the agent only needs luminaries, Ascendant, signature and top aspects.</p></article>
+        </div>
+        <div class="boundary-note"><strong>Unknown birth time:</strong> noon is assumed. Planetary signs remain usable, but the Ascendant and houses are unreliable and must be described that way.</div>
+      </section>
+
+      <section class="article-section setup-callout" id="install">
+        <div>
+          <p class="eyebrow">Try the implementation</p>
+          <h2>One command, then a worked demo.</h2>
+          <p>After your MCP client reloads, call <code>astral_connection_status</code> and then <code>astral_demo</code> before sending real birth data.</p>
+        </div>
+        <div class="terminal compact-terminal">
+          <button type="button" data-copy="npx -y astral-mcp">Copy</button>
+          <pre><code>npx -y astral-mcp</code></pre>
+        </div>
+      </section>
+
+      <section class="article-section" id="fit">
+        <div class="article-heading"><p class="eyebrow">Decision guide</p><h2>When this pattern fits.</h2></div>
+        <div class="fit-grid">
+          <article class="fit-card yes"><h3>Use an astrology MCP server when</h3><ul><li>The agent needs reproducible chart computation.</li><li>Inputs and outputs should have explicit schemas.</li><li>Local execution and inspectable source matter.</li><li>The model should write the reading in its own voice.</li></ul></article>
+          <article class="fit-card no"><h3>Do not treat it as</h3><ul><li>A substitute for medical or psychological care.</li><li>Evidence for a financial or legal decision.</li><li>A guarantee about future events.</li><li>A reliable Ascendant when birth time is unknown.</li></ul></article>
+        </div>
+        <p class="advice-boundary">Astral MCP is not financial, medical, legal or psychological advice. It provides structured astrology data for agent workflows.</p>
+      </section>
+
+      <section class="faq-section article-faq" id="faq">
+        <div class="section-head"><p class="eyebrow">Frequently asked</p><h2>Short answers for builders and agents.</h2></div>
+        <div class="faq-grid">
+          <details class="faq-item" open><summary>Is an astrology MCP server the same as an astrology API?</summary><p>Not exactly. Both can expose computed data, but MCP publishes tool schemas and results in a protocol designed for AI clients. Astral MCP runs locally over stdio or loopback HTTP without an API account.</p></details>
+          <details class="faq-item"><summary>Does Astral MCP generate horoscope prose?</summary><p>No. It returns structured astrology data only. The calling model writes the explanation, reading or narrative.</p></details>
+          <details class="faq-item"><summary>Can it calculate a chart without an exact birth time?</summary><p>Yes, with a disclosed limit. Noon is assumed, so the Ascendant and houses must not be treated as reliable.</p></details>
+          <details class="faq-item"><summary>Is birth data uploaded or stored?</summary><p>No reading history is stored. Only an optional birthplace lookup sends the place-name string to OpenStreetMap; chart computation remains local.</p></details>
+        </div>
+      </section>
+
+      <section class="article-closing">
+        <p class="eyebrow">Canonical implementation</p>
+        <h2>Inspect the tool before trusting the reading.</h2>
+        <p>Astral MCP is open source, MIT licensed and ships its accuracy suite with the repository.</p>
+        <div class="closing-actions"><a class="button primary" href="/">Explore Astral MCP</a><a class="button secondary" href="https://github.com/davidmosiah/astral-mcp">Read the source</a><a class="button secondary" href="https://www.npmjs.com/package/astral-mcp">Open npm</a></div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <p><strong>Astral MCP</strong> by <a href="https://github.com/davidmosiah">David Mosiah</a>. MIT licensed. MCP name <code>io.github.davidmosiah/astral-mcp</code>.</p>
+    <p><a href="/llms.txt">Machine-readable project guide</a> · <a href="what-is-an-astrology-mcp-server.md">This article in Markdown</a></p>
+  </footer>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>
