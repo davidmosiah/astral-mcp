@@ -13,6 +13,7 @@ Canonical guide: https://astral.delx.ai/guides/what-is-an-astrology-mcp-server
 Practical natal-chart guide: https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp
 MCP name: io.github.davidmosiah/astral-mcp
 Author: David Mosiah — https://github.com/davidmosiah
+Publisher: Delx — https://delx.ai/
 License: MIT
 
 Engines: circular-natal-horoscope-js (primary) cross-checked by astronomy-engine (verifier).

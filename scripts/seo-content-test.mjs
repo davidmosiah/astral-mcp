@@ -20,6 +20,13 @@ const vercel = read("vercel.json");
 const readme = read("README.md");
 const siteCss = read("docs/assets/site.css");
 
+assert.match(home, /"@type": "Organization"/);
+assert.match(home, /"@id": "https:\/\/delx\.ai\/#studio"/);
+assert.match(home, /"publisher": \{ "@id": "https:\/\/delx\.ai\/#studio" \}/);
+assert.match(home, /"softwareVersion": "0\.3\.1"/);
+assert.match(docsLlms, /Publisher: Delx — https:\/\/delx\.ai\//);
+assert.match(packageLlms, /Publisher: Delx — https:\/\/delx\.ai\//);
+
 assert.match(html, /<title>What Is an Astrology MCP Server\?/);
 assert.match(html, new RegExp(`<link rel="canonical" href="${canonical}">`));
 assert.match(html, /rel="alternate" type="text\/markdown"/);

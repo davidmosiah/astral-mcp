@@ -4,7 +4,8 @@
 
 Primary URL: https://astral.delx.ai/
 Delx ecosystem: https://delx.ai/
-Updated: 2026-08-11
+Publisher: Delx — https://delx.ai/
+Updated: 2026-08-12
 GitHub: https://github.com/davidmosiah/astral-mcp
 npm: https://www.npmjs.com/package/astral-mcp
 Canonical guide: https://astral.delx.ai/guides/what-is-an-astrology-mcp-server
