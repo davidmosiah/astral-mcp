@@ -1,0 +1,35 @@
+# Astral MCP direct answers
+
+Q: What is Astral MCP?
+A: Astral MCP is a local-first, stateless Model Context Protocol server that
+computes precision-audited natal charts, current transits, synastry and moon
+phases for AI agents. It returns structured data; the calling model writes any
+interpretation.
+
+Q: How do I install Astral MCP?
+A: Run `npx -y astral-mcp` in an MCP-compatible client. No API key, OAuth flow,
+account or hosted database is required.
+
+Q: What should an agent call first?
+A: Call `astral_capabilities`, then `astral_search_birthplace` when the
+birthplace timezone is unknown, then `astral_compute_natal_chart`. Inspect the
+precision audit before using the result.
+
+Q: Does Astral MCP store birth data?
+A: No. The server is stateless and does not persist birth data or credentials.
+The optional birthplace lookup sends only a place name to OpenStreetMap
+Nominatim and must follow that service's usage policy.
+
+Q: What does the precision audit prove?
+A: It reports computational agreement between the primary ephemeris and an
+independent astronomy-engine check. A mismatch is flagged for review; the audit
+does not validate astrology or the model's interpretation.
+
+Q: Is Astral MCP medical or psychological advice?
+A: No. Astral returns structured astrology data only and is not medical,
+psychological, legal or financial advice.
+
+Q: Where are the canonical machine surfaces?
+A: Start at https://astral.delx.ai/agents.txt, then read
+https://astral.delx.ai/skill.md and https://astral.delx.ai/llms.txt. The Delx
+platform boundary is https://delx.ai/platform.

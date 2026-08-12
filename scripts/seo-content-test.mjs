@@ -16,6 +16,11 @@ const home = read("docs/index.html");
 const sitemap = read("docs/sitemap.xml");
 const docsLlms = read("docs/llms.txt");
 const packageLlms = read("llms.txt");
+const agents = read("docs/agents.txt");
+const skill = read("docs/skill.md");
+const answers = read("docs/answers.txt");
+const docsServer = read("docs/server.json");
+const packageServer = read("server.json");
 const vercel = read("vercel.json");
 const readme = read("README.md");
 const siteCss = read("docs/assets/site.css");
@@ -31,6 +36,24 @@ assert.match(packageLlms, /Publisher: Delx — https:\/\/delx\.ai\//);
 assert.match(docsLlms, /Delx platform map: https:\/\/delx\.ai\/platform/);
 assert.match(packageLlms, /Delx platform map: https:\/\/delx\.ai\/platform/);
 assert.match(readme, /\[Delx platform map\]\(https:\/\/delx\.ai\/platform\)/);
+for (const surface of [agents, skill, answers]) {
+  assert.match(surface, /https:\/\/astral\.delx\.ai\/llms\.txt/);
+  assert.match(surface, /https:\/\/delx\.ai\/platform/);
+  assert.doesNotMatch(surface, /private key|seed phrase|wallet secret/i);
+}
+assert.match(agents, /https:\/\/astral\.delx\.ai\/skill\.md/);
+assert.match(agents, /Discovery does not authorize interpretation, payment/);
+assert.match(skill, /astral_capabilities/);
+assert.match(skill, /precision_audit\.status/);
+assert.match(skill, /not a privacy certification/);
+assert.match(answers, /Q: Does Astral MCP store birth data\?/);
+assert.match(answers, /Q: What does the precision audit prove\?/);
+assert.deepEqual(JSON.parse(docsServer), JSON.parse(packageServer), "hosted server manifest must match the package manifest");
+assert.match(agents, /https:\/\/astral\.delx\.ai\/server\.json/);
+assert.match(sitemap, /https:\/\/astral\.delx\.ai\/server\.json/);
+for (const alias of ["agents.txt", "skill.md", "answers.txt"]) {
+  assert.ok(sitemap.includes(`https://astral.delx.ai/${alias}`), `${alias} must be in the sitemap`);
+}
 
 assert.match(html, /<title>What Is an Astrology MCP Server\?/);
 assert.match(html, new RegExp(`<link rel="canonical" href="${canonical}">`));

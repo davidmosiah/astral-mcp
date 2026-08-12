@@ -3,6 +3,9 @@
 > Local-first, precision-audited MCP server that gives AI agents real astrology: natal charts, transits, synastry and moon phases. Stateless — no API key, no OAuth, no account.
 
 Primary URL: https://astral.delx.ai/
+Agent entry points: https://astral.delx.ai/agents.txt
+Integration skill: https://astral.delx.ai/skill.md
+Direct answers: https://astral.delx.ai/answers.txt
 Delx ecosystem: https://delx.ai/
 Publisher: Delx — https://delx.ai/
 Delx platform map: https://delx.ai/platform

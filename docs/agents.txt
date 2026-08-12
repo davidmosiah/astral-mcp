@@ -1,0 +1,24 @@
+# Astral MCP agent entry points
+
+HOME https://astral.delx.ai/
+LLMS https://astral.delx.ai/llms.txt
+SKILL https://astral.delx.ai/skill.md
+ANSWERS https://astral.delx.ai/answers.txt
+SITEMAP https://astral.delx.ai/sitemap.xml
+SERVER_CARD https://astral.delx.ai/server.json
+PACKAGE https://www.npmjs.com/package/astral-mcp
+REPOSITORY https://github.com/davidmosiah/astral-mcp
+PLATFORM https://delx.ai/platform
+ASTRAL_GUIDE https://astral.delx.ai/guides/what-is-an-astrology-mcp-server
+NATAL_GUIDE https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp
+PRIVACY_GUIDE https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows
+
+# Start with astral_capabilities, then resolve the birthplace and call
+# astral_compute_natal_chart. Inspect the returned precision audit before using
+# the structured result. Discovery does not authorize interpretation, payment,
+# medical advice or access to private data.
+
+Astral MCP is Delx's focused, local-first astrology product. It is stateless,
+read-only and computational; the calling model writes any interpretation.
+Full machine context: https://astral.delx.ai/llms.txt
+Support: support@delx.ai

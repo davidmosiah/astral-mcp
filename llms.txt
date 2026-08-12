@@ -6,6 +6,9 @@ chart is independently re-derived by a second ephemeris and shipped with a
 precision audit (per-planet delta + verified/review status).
 
 Package: astral-mcp (npm)
+Agent entry points: https://astral.delx.ai/agents.txt
+Integration skill: https://astral.delx.ai/skill.md
+Direct answers: https://astral.delx.ai/answers.txt
 Install: npx -y astral-mcp
 Binary: astral-mcp-server
 Repository: https://github.com/davidmosiah/astral-mcp

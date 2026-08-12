@@ -13,6 +13,30 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://astral.delx.ai/agents.txt</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://astral.delx.ai/skill.md</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://astral.delx.ai/answers.txt</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://astral.delx.ai/server.json</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://astral.delx.ai/guides/what-is-an-astrology-mcp-server</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
