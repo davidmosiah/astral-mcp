@@ -11,6 +11,7 @@ Binary: astral-mcp-server
 Repository: https://github.com/davidmosiah/astral-mcp
 Canonical guide: https://astral.delx.ai/guides/what-is-an-astrology-mcp-server
 Practical natal-chart guide: https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp
+Birth-data privacy guide: https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows
 MCP name: io.github.davidmosiah/astral-mcp
 Author: David Mosiah — https://github.com/davidmosiah
 Publisher: Delx — https://delx.ai/
@@ -28,6 +29,9 @@ https://astral.delx.ai/guides/what-is-an-astrology-mcp-server
 
 Step-by-step natal-chart workflow:
 https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp
+
+Birth-data privacy workflow:
+https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows
 
 Recommended agent flow:
 1. astral_capabilities — what this server can compute

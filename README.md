@@ -36,6 +36,8 @@ New to the protocol pattern? Read **[What Is an Astrology MCP Server?](https://a
 
 Ready to calculate one? Follow **[How to Generate a Natal Chart with MCP](https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp)** for the exact birthplace, timezone, unknown birth-time, payload and precision-audit workflow.
 
+Handling sensitive inputs? Read **[How to Protect Birth Data in Astrology Agent Workflows](https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows)** for payload minimization, local computation, the optional OpenStreetMap boundary and the limits of `privacy_mode=summary`.
+
 ## Why this exists
 
 Most astrology libraries are fragile single-engine wrappers, and most "astrology APIs" want a key and a subscription. Agents need something they can trust and call instantly. Astral MCP does two things differently:
@@ -156,4 +158,3 @@ npx -y astral-mcp --http
 ```
 
 Env: `ASTRAL_MCP_HOST`, `ASTRAL_MCP_PORT`, `ASTRAL_MCP_TRANSPORT=http`.
-

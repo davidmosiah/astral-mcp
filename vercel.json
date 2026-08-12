@@ -7,6 +7,7 @@
     { "src": "/", "dest": "/docs/index.html" },
     { "src": "/guides/what-is-an-astrology-mcp-server", "dest": "/docs/guides/what-is-an-astrology-mcp-server.html" },
     { "src": "/guides/how-to-generate-a-natal-chart-with-mcp", "dest": "/docs/guides/how-to-generate-a-natal-chart-with-mcp.html" },
+    { "src": "/guides/how-to-protect-birth-data-in-astrology-agent-workflows", "dest": "/docs/guides/how-to-protect-birth-data-in-astrology-agent-workflows.html" },
     { "src": "/(.*)", "dest": "/docs/$1" }
   ]
 }

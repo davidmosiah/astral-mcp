@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Protect Birth Data in Astrology Agent Workflows | Astral MCP</title>
+  <meta name="description" content="A practical privacy workflow for astrology agents: minimize birth data, compute locally, constrain egress and disclose the real limits.">
+  <meta name="author" content="David Mosiah">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="keywords" content="astrology MCP privacy, birth data AI agent, natal chart privacy, local-first astrology, MCP security">
+  <meta name="theme-color" content="#070A1C">
+  <meta property="og:title" content="How to Protect Birth Data in Astrology Agent Workflows">
+  <meta property="og:description" content="Minimize birth data, compute locally, constrain optional place lookup and keep privacy claims bounded in an astrology agent workflow.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Astral MCP">
+  <meta property="og:url" content="https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows">
+  <meta property="og:image" content="https://astral.delx.ai/assets/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Astral MCP — privacy boundaries for astrology AI agents">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Protect Birth Data in Astrology Agent Workflows">
+  <meta name="twitter:description" content="A bounded, local-first workflow for handling birth data with an astrology MCP server.">
+  <meta name="twitter:image" content="https://astral.delx.ai/assets/og-card.png">
+  <link rel="canonical" href="https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows">
+  <link rel="alternate" type="text/markdown" href="https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows.md">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows#article",
+        "headline": "How to Protect Birth Data in Astrology Agent Workflows",
+        "description": "A practical, local-first privacy workflow for agents that use Astral MCP with birth data.",
+        "url": "https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows",
+        "mainEntityOfPage": "https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows",
+        "datePublished": "2026-08-12",
+        "dateModified": "2026-08-12",
+        "inLanguage": "en-US",
+        "author": { "@type": "Person", "name": "David Mosiah", "url": "https://github.com/davidmosiah" },
+        "publisher": { "@type": "Organization", "name": "Delx", "url": "https://delx.ai" },
+        "about": { "@type": "SoftwareApplication", "name": "Astral MCP", "url": "https://astral.delx.ai/" }
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows#workflow",
+        "name": "Protect birth data in an astrology agent workflow",
+        "description": "Minimize, compute locally and keep optional network boundaries explicit when using astrology MCP tools.",
+        "tool": [
+          { "@type": "HowToTool", "name": "An MCP-compatible client" },
+          { "@type": "HowToTool", "name": "Astral MCP" }
+        ],
+        "step": [
+          { "@type": "HowToStep", "position": 1, "name": "Minimize the payload", "text": "Collect only the date, time and birthplace fields required for the question, and prefer privacy_mode=summary for follow-ups." },
+          { "@type": "HowToStep", "position": 2, "name": "Resolve only the location", "text": "Use a deliberate place-name lookup only when coordinates and the historical IANA timezone are not already known." },
+          { "@type": "HowToStep", "position": 3, "name": "Compute locally", "text": "Call Astral MCP's chart tools locally; the stateless process does not persist birth data or reading history." },
+          { "@type": "HowToStep", "position": 4, "name": "Constrain the context", "text": "Pass the smallest useful structured result to the model and keep the raw birth fields out of unrelated prompts and logs." },
+          { "@type": "HowToStep", "position": 5, "name": "State the boundary", "text": "Tell users what the implementation guarantees and what it does not: this is an implementation boundary, not a privacy certification." }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows#breadcrumbs",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Astral MCP", "item": "https://astral.delx.ai/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://astral.delx.ai/#guides" },
+          { "@type": "ListItem", "position": 3, "name": "Protect Birth Data in Astrology Agent Workflows", "item": "https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows#faq",
+        "mainEntity": [
+          { "@type": "Question", "name": "Is birth data stored by Astral MCP?", "acceptedAnswer": { "@type": "Answer", "text": "No. Astral MCP is stateless, computes locally and does not persist birth data or reading history." } },
+          { "@type": "Question", "name": "What leaves the local process during a birthplace lookup?", "acceptedAnswer": { "@type": "Answer", "text": "Only the place-name string is sent to OpenStreetMap's public Nominatim service; skip the lookup when coordinates and timezone are already known." } },
+          { "@type": "Question", "name": "Does privacy_mode=summary delete the raw input?", "acceptedAnswer": { "@type": "Answer", "text": "No. It limits the returned chart payload. The calling agent is still responsible for redacting prompts, logs and traces." } },
+          { "@type": "Question", "name": "Is this a privacy certification?", "acceptedAnswer": { "@type": "Answer", "text": "No. These are product and workflow boundaries, not a privacy certification, legal opinion or security audit." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="article-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="stage-light stage-light-a" aria-hidden="true"></div>
+  <div class="stage-light stage-light-b" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Astral MCP home"><span class="brand-mark" aria-hidden="true"></span><span><strong>Astral MCP</strong><small>Astrology for AI agents</small></span></a>
+    <nav class="nav article-nav" aria-label="Guide navigation"><a href="#answer">Answer</a><a href="#workflow">Workflow</a><a href="#privacy">Privacy</a><a href="#faq">FAQ</a><a class="nav-pill" href="/">Explore Astral MCP</a></nav>
+  </header>
+
+  <main id="main" class="article-shell">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Astral MCP</a><span aria-hidden="true">/</span><span>Guides</span><span aria-hidden="true">/</span><span>Birth-data privacy</span></nav>
+    <article>
+      <header class="article-hero">
+        <p class="eyebrow">Privacy workflow · agent-safe defaults</p>
+        <h1>How to protect <span class="grad">birth data in astrology agent workflows</span></h1>
+        <p class="article-deck">A practical boundary map for minimizing sensitive inputs, keeping chart computation local and being precise about the one optional network step.</p>
+        <div class="article-meta"><span>Updated 12 Aug 2026</span><span>8 minute read</span><a href="how-to-protect-birth-data-in-astrology-agent-workflows.md">Markdown for agents</a></div>
+      </header>
+
+      <section class="answer-panel" id="answer">
+        <p class="eyebrow">Direct answer</p>
+        <p class="direct-answer">To protect birth data in an astrology agent workflow, minimize the payload, resolve the birthplace only when needed, compute locally, use <code>privacy_mode=summary</code> for follow-ups, and keep the model's interpretation separate from the raw input.</p>
+        <p>Astral MCP is stateless: <strong>No birth data is persisted</strong> and there is no account or reading history. An optional birthplace lookup sends only the place-name string to OpenStreetMap. This is an implementation boundary, not a privacy certification.</p>
+      </section>
+
+      <section class="article-section" id="workflow">
+        <div class="article-heading"><p class="eyebrow">Five bounded steps</p><h2>Minimize first. Explain second.</h2><p>Privacy is a workflow property as well as a server property. The client decides what enters prompts, logs and traces after a tool returns.</p></div>
+        <ol class="workflow-list">
+          <li><strong>Minimize the payload</strong><span>Ask for the date, optional time and birthplace fields needed for this question only. Do not attach names, addresses, contact details or unrelated context to a chart call.</span></li>
+          <li><strong>Resolve only the location</strong><span>If you already have latitude, longitude and the historical IANA timezone, skip <code>astral_search_birthplace</code>. Otherwise send a deliberate place-name string, inspect the result and retain only the selected location fields.</span></li>
+          <li><strong>Compute locally</strong><span>Call <code>astral_compute_natal_chart</code>, <code>astral_current_transits</code> or <code>astral_synastry</code> in the local stateless process. The chart tools do not persist birth data or reading history.</span></li>
+          <li><strong>Constrain the context</strong><span>Use <code>privacy_mode=summary</code> when the model needs only the high-signal result. Keep raw birth fields out of unrelated prompts, analytics events and debug logs.</span></li>
+          <li><strong>State the boundary</strong><span>Preserve the tool's precision status and tell the user what was sent over the network. Product behavior is not a privacy certification, legal opinion or security audit.</span></li>
+        </ol>
+        <p>For the full tool sequence, read <a href="https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp">How to Generate a Natal Chart with MCP</a>.</p>
+      </section>
+
+      <section class="article-section setup-callout" id="input">
+        <div><p class="eyebrow">Smallest useful request</p><h2>Keep raw context out of the chart call.</h2><p>Pass only the fields the computation needs. A summary response reduces what the model must carry forward; it does not replace redaction in the surrounding application.</p></div>
+        <div class="terminal compact-terminal"><pre><code>{
+  "birth_date": "1989-02-23",
+  "birth_time": "14:30",
+  "latitude": -3.7319,
+  "longitude": -38.5267,
+  "timezone": "America/Fortaleza",
+  "verify_precision": true,
+  "privacy_mode": "summary",
+  "response_format": "json"
+}</code></pre></div>
+      </section>
+
+      <section class="article-section" id="privacy">
+        <div class="article-heading"><p class="eyebrow">What Astral actually guarantees</p><h2>Facts, not vague privacy language.</h2><p>These are observable product boundaries. They should be carried into the agent's user-facing explanation and reviewed again when the deployment changes.</p></div>
+        <div class="fact-grid">
+          <article><strong>Stateless computation</strong><p>The local MCP process computes the chart and does not persist birth data, accounts or reading history.</p></article>
+          <article><strong>One optional egress</strong><p><code>astral_search_birthplace</code> sends only the place-name string to public OpenStreetMap Nominatim. Skip it when you already know the coordinates and timezone.</p></article>
+          <article><strong>Payload control</strong><p><code>privacy_mode</code> separates full, structured and summary verbosity. It limits the result sent to the model, not your application's own logs.</p></article>
+          <article><strong>Caller responsibility</strong><p>Redact names and unrelated personal data, restrict telemetry, and set retention rules around the MCP client, model provider and observability stack.</p></article>
+        </div>
+        <p class="boundary-note">The Nominatim service has its own <a href="https://operations.osmfoundation.org/policies/nominatim/">usage policy</a>. Do not use the public endpoint for autocomplete, bulk or confidential queries.</p>
+      </section>
+
+      <section class="article-section split-section" id="limits">
+        <div><p class="eyebrow">Do not overclaim</p><h2>Implementation boundaries are not certification.</h2><p>“Stateless” describes Astral MCP's process and storage behavior. It does not certify the MCP client, model provider, proxy, logs, backups or downstream analytics.</p><p>Likewise, a <code>verified</code> result means two computational paths agreed within tolerance. It does not validate astrology or make the output scientific, medical, legal or psychological advice.</p><p class="boundary-note">This guide is not a privacy certification, legal opinion or substitute for a threat model and data-retention review of your complete deployment.</p></div>
+        <figure class="article-figure"><img src="/assets/dual-engine.svg" alt="Birth data enters a local chart engine and returns a bounded structured result while an optional place lookup is kept explicit" width="900" height="620"><figcaption>Make the network boundary and the interpretation boundary visible.</figcaption></figure>
+      </section>
+
+      <section class="article-section" id="review">
+        <div class="article-heading"><p class="eyebrow">Before production</p><h2>Run a small privacy review.</h2></div>
+        <ol class="workflow-list">
+          <li><strong>Map the fields</strong><span>List every birth-data field, derived field and identifier that enters the client, model, logs or analytics.</span></li>
+          <li><strong>Test egress</strong><span>Confirm that only a deliberate place-name lookup can leave the local process and that its policy/rate limits are respected.</span></li>
+          <li><strong>Check retention</strong><span>Set retention and access rules for prompts, traces, crash reports and backups outside Astral MCP.</span></li>
+          <li><strong>Publish the disclosure</strong><span>Tell users that Astral is stateless, name the optional OpenStreetMap lookup and avoid saying “certified” unless a separate audit supports it.</span></li>
+        </ol>
+        <p class="advice-boundary">Astral MCP returns structured astrology data for agent workflows. It is not financial, medical, legal or psychological advice.</p>
+      </section>
+
+      <section class="faq-section article-faq" id="faq">
+        <div class="section-head"><p class="eyebrow">Frequently asked</p><h2>Short answers for builders and users.</h2></div>
+        <div class="faq-grid">
+          <details class="faq-item" open><summary>Is birth data stored by Astral MCP?</summary><p>No. Astral MCP is stateless, computes locally and does not persist birth data or reading history. Your MCP client, model provider and observability stack still need their own retention review.</p></details>
+          <details class="faq-item"><summary>What leaves the local process during a birthplace lookup?</summary><p>Only the place-name string is sent to OpenStreetMap's public Nominatim service. Skip the lookup when coordinates and the historical IANA timezone are already known.</p></details>
+          <details class="faq-item"><summary>Does privacy_mode=summary delete the raw input?</summary><p>No. It limits the returned chart payload. The calling agent remains responsible for redacting prompts, logs, traces and analytics events.</p></details>
+          <details class="faq-item"><summary>Is this a privacy certification?</summary><p>No. These are product and workflow boundaries, not a privacy certification, legal opinion or security audit.</p></details>
+        </div>
+      </section>
+
+      <section class="article-closing">
+        <p class="eyebrow">Continue learning</p><h2>Keep the protocol and the privacy story aligned.</h2>
+        <p>Start with <a href="https://astral.delx.ai/guides/what-is-an-astrology-mcp-server">What Is an Astrology MCP Server?</a> for the computation/interpretation boundary, then follow the <a href="https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp">natal-chart workflow</a> with this privacy checklist beside it.</p>
+        <div class="closing-actions"><a class="button primary" href="/">Explore Astral MCP</a><a class="button secondary" href="https://github.com/davidmosiah/astral-mcp">Read the source</a><a class="button secondary" href="how-to-protect-birth-data-in-astrology-agent-workflows.md">Markdown for agents</a></div>
+      </section>
+    </article>
+  </main>
+
+  <footer class="footer"><p><strong>Astral MCP</strong> by <a href="https://github.com/davidmosiah">David Mosiah</a>. MIT licensed. MCP name <code>io.github.davidmosiah/astral-mcp</code>.</p><p><a href="/llms.txt">Machine-readable project guide</a> · <a href="how-to-protect-birth-data-in-astrology-agent-workflows.md">This article in Markdown</a></p></footer>
+  <script src="/assets/site.js" defer></script>
+</body>
+</html>

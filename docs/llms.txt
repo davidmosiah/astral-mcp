@@ -11,6 +11,7 @@ GitHub: https://github.com/davidmosiah/astral-mcp
 npm: https://www.npmjs.com/package/astral-mcp
 Canonical guide: https://astral.delx.ai/guides/what-is-an-astrology-mcp-server
 Practical natal-chart guide: https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp
+Birth-data privacy guide: https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows
 MCP name: io.github.davidmosiah/astral-mcp
 Creator: David Mosiah, https://github.com/davidmosiah
 Engine origin: ported from the Alkhemia app, https://alkhemia.app
@@ -23,6 +24,8 @@ Astral MCP turns birth data into a full, precision-audited astrological reading 
 For the protocol pattern, division between deterministic computation and model interpretation, and the privacy/birth-time boundaries, read https://astral.delx.ai/guides/what-is-an-astrology-mcp-server (Markdown: https://astral.delx.ai/guides/what-is-an-astrology-mcp-server.md).
 
 For the exact birthplace → timezone → precision-audited chart workflow, including unknown birth-time and public Nominatim usage boundaries, read https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp (Markdown: https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp.md).
+
+For birth-data minimization, local computation, the optional OpenStreetMap egress and the limits of `privacy_mode=summary`, read https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows (Markdown: https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows.md).
 
 ## Delx ecosystem boundary
 

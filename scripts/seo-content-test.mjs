@@ -102,4 +102,41 @@ assert.ok(html.includes(natalCanonical), "the conceptual guide must link to the 
 assert.ok(natalHtml.includes(canonical), "the practical guide must link back to the conceptual guide");
 assert.match(siteCss, /\.community-section \.community-card \+ \.community-card\s*{[^}]*margin-top:/s, "stacked guide cards must have visible separation");
 
+const privacySlug = "guides/how-to-protect-birth-data-in-astrology-agent-workflows";
+const privacyCanonical = `https://astral.delx.ai/${privacySlug}`;
+assert.ok(existsSync(join(root, `docs/${privacySlug}.html`)), "privacy-workflow HTML guide must exist");
+assert.ok(existsSync(join(root, `docs/${privacySlug}.md`)), "privacy-workflow Markdown guide must exist");
+const privacyHtml = read(`docs/${privacySlug}.html`);
+const privacyMarkdown = read(`docs/${privacySlug}.md`);
+
+assert.match(privacyHtml, /<title>How to Protect Birth Data in Astrology Agent Workflows/);
+assert.match(privacyHtml, new RegExp(`<link rel="canonical" href="${privacyCanonical}">`));
+assert.match(privacyHtml, /rel="alternate" type="text\/markdown"/);
+const privacyDescription = privacyHtml.match(/<meta name="description" content="([^"]+)">/)?.[1] ?? "";
+assert.ok(privacyDescription.length >= 120 && privacyDescription.length <= 160, "privacy guide description must stay within 120–160 characters");
+for (const schemaType of ["TechArticle", "HowTo", "BreadcrumbList", "FAQPage"]) {
+  assert.ok(privacyHtml.includes(`"@type": "${schemaType}"`), `privacy guide must publish ${schemaType} schema`);
+}
+assert.match(privacyHtml, /class="direct-answer"[^>]*>\s*To protect birth data in an astrology agent workflow/);
+assert.match(privacyHtml, /stateless/i);
+assert.match(privacyHtml, /No birth data is persisted/i);
+assert.match(privacyHtml, /privacy_mode=summary/);
+assert.match(privacyHtml, /OpenStreetMap|place-name/i);
+assert.match(privacyHtml, /not a privacy certification/i);
+assert.match(privacyHtml, /minimiz|redact|raw birth data/i);
+
+assert.match(privacyMarkdown, /^# How to Protect Birth Data in Astrology Agent Workflows/m);
+assert.match(privacyMarkdown, new RegExp(`Canonical: ${privacyCanonical}`));
+assert.match(privacyMarkdown, /## Direct answer/);
+assert.match(privacyMarkdown, /No birth data is persisted/i);
+assert.match(privacyMarkdown, /privacy_mode.*summary/i);
+assert.match(privacyMarkdown, /not a privacy certification/i);
+
+for (const surface of [home, sitemap, docsLlms, packageLlms, readme]) {
+  assert.ok(surface.includes(privacyCanonical), "machine and editorial surfaces must cite the privacy-workflow guide");
+}
+assert.ok(vercel.includes(`"/${privacySlug}"`), "clean privacy-guide route must resolve to HTML");
+assert.ok(privacyHtml.includes(natalCanonical), "the privacy guide must link to the practical natal-chart guide");
+assert.ok(natalHtml.includes(privacyCanonical), "the practical natal guide must link to the privacy guide");
+
 console.log("✓ Astral guides align HTML, Markdown and discovery surfaces");

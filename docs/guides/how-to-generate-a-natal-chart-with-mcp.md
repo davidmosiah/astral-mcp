@@ -141,3 +141,4 @@ No. The server is stateless and stores no reading history. Only an optional birt
 - [MCP tools specification](https://modelcontextprotocol.io/specification/2025-06-18/server/tools)
 - [Nominatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/)
 - [Astronomy Engine](https://github.com/cosinekitty/astronomy)
+- [Birth-data privacy workflow](https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows)

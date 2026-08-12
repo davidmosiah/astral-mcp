@@ -97,6 +97,7 @@ No reading history is stored. Only an optional birthplace lookup sends the place
 
 - Astral MCP: https://astral.delx.ai/
 - Step-by-step natal chart workflow: https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp
+- Birth-data privacy workflow: https://astral.delx.ai/guides/how-to-protect-birth-data-in-astrology-agent-workflows
 - Source: https://github.com/davidmosiah/astral-mcp
 - npm: https://www.npmjs.com/package/astral-mcp
 - Machine-readable project guide: https://astral.delx.ai/llms.txt
