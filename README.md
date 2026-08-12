@@ -144,3 +144,16 @@ The computation core in `src/engine/` is ported from Alkhemia — keep it framew
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+## HTTP (v2 stateless)
+
+Default is **stdio**. Optional Streamable HTTP — no session id, JSON responses, loopback only:
+
+```bash
+npx -y astral-mcp --http
+# GET  http://127.0.0.1:3000/health
+# POST http://127.0.0.1:3000/mcp   (sessionless)
+```
+
+Env: `ASTRAL_MCP_HOST`, `ASTRAL_MCP_PORT`, `ASTRAL_MCP_TRANSPORT=http`.
+
