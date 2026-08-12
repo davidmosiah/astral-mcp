@@ -32,6 +32,7 @@
 html {
   scroll-behavior: smooth;
   background: var(--bg);
+  overflow-x: hidden;
 }
 
 body {
