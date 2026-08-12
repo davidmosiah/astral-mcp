@@ -5,6 +5,7 @@
 Primary URL: https://astral.delx.ai/
 Delx ecosystem: https://delx.ai/
 Publisher: Delx — https://delx.ai/
+Delx platform map: https://delx.ai/platform
 Updated: 2026-08-12
 GitHub: https://github.com/davidmosiah/astral-mcp
 npm: https://www.npmjs.com/package/astral-mcp
@@ -22,6 +23,10 @@ Astral MCP turns birth data into a full, precision-audited astrological reading 
 For the protocol pattern, division between deterministic computation and model interpretation, and the privacy/birth-time boundaries, read https://astral.delx.ai/guides/what-is-an-astrology-mcp-server (Markdown: https://astral.delx.ai/guides/what-is-an-astrology-mcp-server.md).
 
 For the exact birthplace → timezone → precision-audited chart workflow, including unknown birth-time and public Nominatim usage boundaries, read https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp (Markdown: https://astral.delx.ai/guides/how-to-generate-a-natal-chart-with-mcp.md).
+
+## Delx ecosystem boundary
+
+Astral MCP is Delx's focused astrology product. Astral owns local, stateless astrology computation; the institutional platform map links it to the separate Protocol, Security, Wellness and Commerce properties: https://delx.ai/platform
 
 ## Precision (the differentiator)
 

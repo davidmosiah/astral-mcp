@@ -28,6 +28,8 @@
 
 **A local-first MCP server that turns birth data into a full, precision-audited astrological reading for AI agents.** Stateless and computational — nothing is stored, no credentials exist, and every tool but optional geocoding runs fully offline.
 
+Astral MCP is Delx's focused astrology product. See the [Delx platform map](https://delx.ai/platform) for its boundary with the separate Protocol, Security, Wellness and Commerce properties.
+
 Built by [David Mosiah](https://github.com/davidmosiah). The astrology engine is ported from the [Alkhemia](https://alkhemia.app) app.
 
 New to the protocol pattern? Read **[What Is an Astrology MCP Server?](https://astral.delx.ai/guides/what-is-an-astrology-mcp-server)** for the separation between deterministic chart computation and model interpretation, the recommended agent workflow, and the precision/privacy boundaries.

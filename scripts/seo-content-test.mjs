@@ -24,8 +24,13 @@ assert.match(home, /"@type": "Organization"/);
 assert.match(home, /"@id": "https:\/\/delx\.ai\/#studio"/);
 assert.match(home, /"publisher": \{ "@id": "https:\/\/delx\.ai\/#studio" \}/);
 assert.match(home, /"softwareVersion": "0\.3\.1"/);
+assert.match(home, /How does Astral MCP relate to Delx\?/);
+assert.match(home, /https:\/\/delx\.ai\/platform/);
 assert.match(docsLlms, /Publisher: Delx — https:\/\/delx\.ai\//);
 assert.match(packageLlms, /Publisher: Delx — https:\/\/delx\.ai\//);
+assert.match(docsLlms, /Delx platform map: https:\/\/delx\.ai\/platform/);
+assert.match(packageLlms, /Delx platform map: https:\/\/delx\.ai\/platform/);
+assert.match(readme, /\[Delx platform map\]\(https:\/\/delx\.ai\/platform\)/);
 
 assert.match(html, /<title>What Is an Astrology MCP Server\?/);
 assert.match(html, new RegExp(`<link rel="canonical" href="${canonical}">`));

@@ -132,6 +132,14 @@
               "@type": "Answer",
               "text": "No, by design. It returns structured astrology data (planets, houses, aspects, chart signature, precision audit). The calling model writes any interpretation, so the reading stays in your agent's voice."
             }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Astral MCP relate to Delx?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Astral MCP is Delx's focused astrology product. Astral owns local, stateless astrology computation; the Delx platform map links it to the separate Protocol, Security, Wellness and Commerce properties."
+            }
           }
         ]
       }
@@ -365,6 +373,10 @@
           <summary>Does it write the interpretation?</summary>
           <p>No, by design. It returns structured data (planets, houses, aspects, signature, audit). Your model writes the reading, so it stays in your agent's voice. Pass the <strong>birthplace</strong> timezone, not the caller's, and include <code>birth_time</code> for an accurate Ascendant and houses.</p>
         </details>
+        <details class="faq-item" data-reveal>
+          <summary>How does Astral MCP relate to Delx?</summary>
+          <p>Astral MCP is Delx's focused astrology product. Astral owns local, stateless astrology computation; the <a href="https://delx.ai/platform">Delx platform map</a> links it to the separate Protocol, Security, Wellness and Commerce properties.</p>
+        </details>
       </div>
       <p class="inline-link-row" data-reveal>
         <a href="llms.txt">Read the llms.txt</a>
@@ -565,6 +577,17 @@ After reloading MCP:
           <a class="button secondary" href="https://www.npmjs.com/package/astral-mcp">npm package</a>
         </div>
       </div>
+      <div class="community-card" data-reveal>
+        <div>
+          <p class="eyebrow">Delx ecosystem</p>
+          <h2>Astral has one clear home in the platform map.</h2>
+          <p>Astral owns local, stateless astrology computation. Delx's institutional map explains how Astral relates to the separate Protocol, Security, Wellness and Commerce properties without turning them into one monolithic API.</p>
+        </div>
+        <div class="community-actions">
+          <a class="button primary" href="https://delx.ai/platform">View the Delx platform map</a>
+          <a class="button secondary" href="https://delx.ai">Open Delx</a>
+        </div>
+      </div>
     </section>
 
     <section class="community-section" id="guides">
@@ -609,6 +632,7 @@ After reloading MCP:
   <footer class="footer">
     <p><strong>Astral MCP</strong> by <a href="https://github.com/davidmosiah">David Mosiah</a>. MIT licensed. MCP name <code>io.github.davidmosiah/astral-mcp</code>.</p>
     <p>Astrology engine ported from the <a href="https://alkhemia.app">Alkhemia</a> app. Precision via <a href="https://www.npmjs.com/package/circular-natal-horoscope-js">circular-natal-horoscope-js</a> cross-checked by <a href="https://www.npmjs.com/package/astronomy-engine">astronomy-engine</a>.</p>
+    <p>Astral is Delx's focused astrology product. <a href="https://delx.ai/platform">Explore the Delx platform map</a>.</p>
     <p>Astral MCP returns structured astrology data for agent workflows. It is not financial, medical, legal or psychological advice.</p>
   </footer>
 
