@@ -1330,6 +1330,8 @@ pre {
 
   .nav {
     width: 100%;
+    min-width: 0;
+    max-width: 100%;
     overflow-x: auto;
     padding-bottom: 0.2rem;
     scrollbar-width: none;
