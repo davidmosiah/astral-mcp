@@ -19,6 +19,7 @@ const packageLlms = read("llms.txt");
 const agents = read("docs/agents.txt");
 const skill = read("docs/skill.md");
 const answers = read("docs/answers.txt");
+const robots = read("docs/robots.txt");
 const docsServer = read("docs/server.json");
 const packageServer = read("server.json");
 const vercel = read("vercel.json");
@@ -48,6 +49,11 @@ assert.match(skill, /precision_audit\.status/);
 assert.match(skill, /not a privacy certification/);
 assert.match(answers, /Q: Does Astral MCP store birth data\?/);
 assert.match(answers, /Q: What does the precision audit prove\?/);
+assert.equal(
+  (robots.match(/^Content-Signal:\s*search=yes, ai-train=no, ai-input=yes$/gm) || []).length,
+  1,
+  "Astral robots must declare the canonical Content-Signal policy",
+);
 assert.deepEqual(JSON.parse(docsServer), JSON.parse(packageServer), "hosted server manifest must match the package manifest");
 assert.match(agents, /https:\/\/astral\.delx\.ai\/server\.json/);
 assert.match(sitemap, /https:\/\/astral\.delx\.ai\/server\.json/);
