@@ -158,3 +158,9 @@ npx -y astral-mcp --http
 ```
 
 Env: `ASTRAL_MCP_HOST`, `ASTRAL_MCP_PORT`, `ASTRAL_MCP_TRANSPORT=http`.
+
+## Skill or MCP
+
+```bash
+npx -y astral-mcp call astral_connection_status --json '{}'
+```

@@ -1,6 +1,6 @@
 {
   "name": "astral-mcp",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Local-first, precision-audited MCP server that gives AI agents natal charts, transits, synastry and moon phases \u2014 no API key, no account.",
   "type": "module",
   "bin": {
@@ -17,7 +17,8 @@
     "AGENTS.md",
     "server.json",
     "examples",
-    "llms.txt"
+    "llms.txt",
+    "skill"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -31,8 +32,9 @@
     "test:seo": "node scripts/seo-content-test.mjs",
     "test:indexnow": "node --test scripts/indexnow-test.mjs",
     "discovery:indexnow": "node scripts/submit-indexnow.mjs",
-    "test": "npm run typecheck && npm run build && npm run smoke && npm run test:accuracy && npm run test:demo-contract && npm run test:metadata && npm run test:seo && npm run test:indexnow",
-    "prepublishOnly": "npm test"
+    "test": "npm run typecheck && npm run build && npm run smoke && npm run test:accuracy && npm run test:demo-contract && npm run test:metadata && npm run test:seo && npm run test:indexnow && npm run test:skill-surface",
+    "prepublishOnly": "npm test",
+    "test:skill-surface": "node scripts/test-skill-surface.mjs"
   },
   "keywords": [
     "mcp",

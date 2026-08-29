@@ -1,3 +1,7 @@
+## 0.3.2 - 2026-08-29
+
+Skill layer ships in-package (`skill/SKILL.md`). Agents can use MCP tools **or** `call <tool> --json` on the same binary.
+
 # Changelog
 
 ## 0.3.1

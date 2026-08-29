@@ -5,6 +5,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { SERVER_NAME, SERVER_VERSION } from "./constants.js";
 import { createServer } from "./server.js";
+import { runToolCall } from "./cli/tool-calls.js";
 
 async function runStdio(): Promise<void> {
   const server = createServer();
@@ -53,7 +54,12 @@ async function runHttp(): Promise<void> {
   });
 }
 
-const args = new Set(process.argv.slice(2));
+const argv = process.argv.slice(2);
+if (argv[0] === "call") {
+  process.exit(await runToolCall(argv.slice(1)));
+}
+
+const args = new Set(argv);
 const transport = process.env.ASTRAL_MCP_TRANSPORT ?? (args.has("--http") ? "http" : "stdio");
 
 if (transport === "http") {

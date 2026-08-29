@@ -28,7 +28,7 @@ const siteCss = read("docs/assets/site.css");
 assert.match(home, /"@type": "Organization"/);
 assert.match(home, /"@id": "https:\/\/delx\.ai\/#studio"/);
 assert.match(home, /"publisher": \{ "@id": "https:\/\/delx\.ai\/#studio" \}/);
-assert.match(home, /"softwareVersion": "0\.3\.1"/);
+assert.match(home, /"softwareVersion": "0\.3\.2"/);
 assert.match(home, /How does Astral MCP relate to Delx\?/);
 assert.match(home, /https:\/\/delx\.ai\/platform/);
 assert.match(docsLlms, /Publisher: Delx — https:\/\/delx\.ai\//);
