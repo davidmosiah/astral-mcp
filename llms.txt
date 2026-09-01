@@ -1,3 +1,7 @@
+# Astral MCP
+Parent lab: https://delx.ai/
+This property is Astral MCP. It is not Delx Commerce and not Protocol recovery.
+
 astral-mcp — precision-audited astrology for AI agents
 
 Local-first MCP server that computes natal charts, transits, synastry and moon
