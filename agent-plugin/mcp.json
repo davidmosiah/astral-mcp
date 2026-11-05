@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "astral": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "astral-mcp@0.3.2"
+      ],
+      "cwd": "${PLUGIN_DATA}"
+    }
+  }
+}

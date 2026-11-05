@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "astral-mcp",
+  "version": "0.3.2",
+  "description": "Compute precision-audited astrology with the local astral MCP server: natal charts with houses and aspects, current transits, synastry between two people and moon phase.",
+  "author": {
+    "name": "David Mosiah",
+    "url": "https://github.com/davidmosiah"
+  },
+  "homepage": "https://github.com/davidmosiah/astral-mcp",
+  "repository": "https://github.com/davidmosiah/astral-mcp",
+  "license": "MIT",
+  "keywords": [
+    "astrology",
+    "birth-chart",
+    "ephemeris",
+    "hermes",
+    "horoscope",
+    "mcp",
+    "model-context-protocol",
+    "natal-chart",
+    "transits"
+  ]
+}
